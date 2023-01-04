@@ -43,9 +43,10 @@ interface Props {
 	x: SharedValue<number>,
 	index: number;
 	colors: [string, string, string],
+	txt: string
 }
 
-export const Slide : React.FC<Props> = ({x, colors, index}) => {
+export const Slide : React.FC<Props> = ({x, colors, index, txt}) => {
 
 	const animatedProps = useAnimatedProps(() => {
 		const progress = (x.value - width * index) / width;
@@ -114,12 +115,15 @@ export const Slide : React.FC<Props> = ({x, colors, index}) => {
 				justifyContent: 'center',
 				alignItems: 'center'
 			}}>
-				<Text>TEST</Text>
+				<Text style={styles.txt}>{txt}</Text>
 			</View>
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({
-
+	txt: {
+		fontFamily: 'cooper',
+		fontSize: 30
+	}
 })

@@ -10,19 +10,19 @@ const { width } = Dimensions.get('window')
 
 const slides =[
 	{
-	  color: "#3984FF",
-	  //picture: require("./assets/1.png"),
-	  aspectRatio: 439.75 / 470.5,
+		color: "#65FFCE",
+		aspectRatio: 439.75 / 470.5,
+		txt: "2min"
 	},
 	{
-	  color: "#39ffb4",
-	  //picture: require("./assets/2.png"),
-	  aspectRatio: 400.5 / 429.5,
+		color: "#E1FDA2",
+		aspectRatio: 400.5 / 429.5,
+		txt: "5min"
 	},
 	{
-	  color: "#ffb439",
-	  //picture: require("./assets/4.png"),
-	  aspectRatio: 391.25 / 520,
+		color: "#C8FD4E",
+		aspectRatio: 391.25 / 520,
+		txt: "10min"
 	},
 ]; 
 
@@ -32,13 +32,14 @@ export const Fluid : React.FC = () => {
 	const scrollHandler = useAnimatedScrollHandler({
 		onScroll: (e) => {
 			//if(e.contentOffset.x % width == 0)
-				//Haptics.selectionAsync()
+			//Haptics.selectionAsync()
 			x.value = e.contentOffset.x
 		}
 	})
 
 	return (
 		<View style={styles.container}>
+			<Text style={styles.heading}>Breathing</Text>
 			<Animated.ScrollView
 				onScroll={scrollHandler}
 				scrollEventThrottle={16}
@@ -46,14 +47,15 @@ export const Fluid : React.FC = () => {
 				decelerationRate="fast"
 				showsHorizontalScrollIndicator={false}
 				horizontal
-			>
-			{
+				>
+				{
 				slides.map((slide, key) => { 
 					const isFirst = key === 0;
 					const isLast = key === slides.length - 1
 					return (<View style={styles.content} key={key}>
 						<Slide
 							x={x}
+							txt={slide.txt}
 							index={key}
 							colors={[
 								isFirst ? slide.color: slides[key - 1].color,
@@ -63,7 +65,7 @@ export const Fluid : React.FC = () => {
 						/>
 					</View>)
 				})
-			}	
+				}	
 			</Animated.ScrollView>
 		</View>
 	)
@@ -72,12 +74,18 @@ export const Fluid : React.FC = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: 'white'
+		backgroundColor: 'black'
 	},
 	content: {
 		flex: 1,
 		width: width,
 		justifyContent: 'center',
 		alignItems: 'center'
+	},
+	heading: {
+		color: 'white',
+		fontFamily: 'cooper',
+		textAlign: 'center',
+		fontSize: 30
 	}
 })
