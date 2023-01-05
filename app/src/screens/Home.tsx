@@ -1,18 +1,21 @@
 import React from 'react';
-import { ScrollView, SafeAreaView, View, StyleSheet } from 'react-native';
+import {  SafeAreaView, View, StyleSheet } from 'react-native';
 import { } from 'react-native-gesture-handler';
 import { Option } from '../components'
+import { ScrollView } from 'react-native-gesture-handler';
 
 const options = [
 	{
 		name: "Breathing",
+		id: "op-1"
 	},
 	{
-		name: "Reflection"
+		name: "Reflection",
+		id: "op-2"
 	}
 ]
 
-export const Home : React.FC = () => {
+export const Home : React.FC<any> = ({navigation}) => {
 
 	return (
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
@@ -20,7 +23,7 @@ export const Home : React.FC = () => {
 				<ScrollView style={styles.content}>
 					{
 						options.map((option, key) => (
-							<Option title={option.name} />
+							<Option key={key} navigation={navigation} id={option.id} title={option.name} />
 						))
 					}
 				</ScrollView>
