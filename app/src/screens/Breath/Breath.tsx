@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
-import { Fluid } from '../../components'
+import { Fluid, StartButton } from '../../components'
 
 export const Breath : React.FC = () => {
 
@@ -8,6 +8,7 @@ export const Breath : React.FC = () => {
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
 			<View style={styles.container}>
 				<Fluid />
+				<StartButton />
 			</View>
 		</SafeAreaView>
 	)
