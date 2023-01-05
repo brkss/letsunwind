@@ -2,8 +2,11 @@ import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Pressable, Text, StyleSheet, View } from 'react-native';
 
+interface Props {
+	title: string;
+}
 
-export const Option : React.FC = () => {
+export const Option : React.FC<Props> = ({title}) => {
 
 
 	return (
@@ -12,7 +15,7 @@ export const Option : React.FC = () => {
 				<View style={styles.circle}>
 					<Ionicons size={30} name={'arrow-forward-outline'} />
 				</View>
-				<Text style={styles.title}>Breathing</Text>
+				<Text style={styles.title}>{title}</Text>
 			</View>
 		</Pressable>
 	)
@@ -20,7 +23,8 @@ export const Option : React.FC = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		//
+		height: 100,
+		marginTop: 20
 	},
 	row: {
 		flexDirection: 'row',

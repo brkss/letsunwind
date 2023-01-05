@@ -1,13 +1,29 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet } from 'react-native';
+import { ScrollView, SafeAreaView, View, StyleSheet } from 'react-native';
+import { } from 'react-native-gesture-handler';
 import { Option } from '../components'
+
+const options = [
+	{
+		name: "Breathing",
+	},
+	{
+		name: "Reflection"
+	}
+]
 
 export const Home : React.FC = () => {
 
 	return (
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
 			<View style={styles.container}>
-				<Option />
+				<ScrollView style={styles.content}>
+					{
+						options.map((option, key) => (
+							<Option title={option.name} />
+						))
+					}
+				</ScrollView>
 			</View>
 		</SafeAreaView>
 	)
@@ -16,5 +32,8 @@ export const Home : React.FC = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+	},
+	content: {
+		paddingTop: 30
 	}
 })
