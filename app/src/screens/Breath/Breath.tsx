@@ -12,7 +12,7 @@ export const Breath : React.FC = () => {
 					<Pressable>
 						<Ionicons name={'arrow-up-outline'} color={'white'} size={40} />
 					</Pressable>
-					<Text style={styles.heading}>Breathing</Text>
+					<Text style={styles.heading}>Blending</Text>
 				</View>
 				<Fluid />
 				<StartButton />
