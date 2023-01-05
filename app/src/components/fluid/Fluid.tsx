@@ -39,7 +39,6 @@ export const Fluid : React.FC = () => {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.heading}>Breathing</Text>
 			<Animated.ScrollView
 				onScroll={scrollHandler}
 				scrollEventThrottle={16}
@@ -82,10 +81,5 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
-	heading: {
-		color: 'white',
-		fontFamily: 'cooper',
-		textAlign: 'center',
-		fontSize: 30
-	}
+	
 })

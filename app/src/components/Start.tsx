@@ -28,6 +28,6 @@ const styles = StyleSheet.create({
 	txt: {
 		color: 'black',
 		fontFamily: 'cooper',
-		fontSize: 40
+		fontSize: 30
 	}
 })
