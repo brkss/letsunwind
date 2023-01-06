@@ -44,11 +44,16 @@ export const HomeNavigation : React.FC = () => {
 			<Stack.Screen 
 				name={'Breathing'}
 				component={Breathing}
+				options={{
+					presentation: "transparentModal",
+					gestureEnabled: true
+				}}
 				sharedElements={() => {
 					const id = 'bt' 
 					return [
 						{
-							id: `${id}-title`
+							id: `${id}-title`,
+							animation: 'fade'
 						}
 					]
 				}}

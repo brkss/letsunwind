@@ -7,7 +7,7 @@ import Animated, { useSharedValue, useAnimatedStyle, interpolate, Extrapolate, w
 import { useVector, snapPoint, opacity } from 'react-native-redash'
 import { SharedElement } from 'react-navigation-shared-element';
 
-const { height } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window')
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export const Breath : React.FC<any> = ({route, navigation}) => {
@@ -22,8 +22,9 @@ export const Breath : React.FC<any> = ({route, navigation}) => {
 		onActive: ({translationX, translationY, velocityY}) => {
 		
 			console.log("gest : ", translationY)
-			translation.x.value = translationX,
-			translation.y.value = translationY
+			if (translationY > -(width / 3))
+				translation.y.value = translationY
+			translation.x.value = translationX
 			if (translationY > height * .05){
 				rot.value = withTiming(90, {duration: 400}) 
 			}

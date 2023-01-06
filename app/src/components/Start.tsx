@@ -1,6 +1,5 @@
 import React from 'react';
 import { Pressable, Text, Dimensions, StyleSheet } from 'react-native';
-import { SharedElement } from 'react-navigation-shared-element';
 
 interface Props {
 	onPress: () => void;
@@ -12,9 +11,7 @@ export const StartButton : React.FC<Props> = ({onPress}) => {
 
 	return (
 		<Pressable onPress={onPress} style={styles.container}>
-			<SharedElement id='bt-title' >
-				<Text style={styles.txt}>Start</Text>
-			</SharedElement>
+			<Text style={styles.txt}>Start</Text>
 		</Pressable>
 	)
 }
