@@ -21,11 +21,19 @@ export const Breathing : React.FC = () => {
 	const indOpa = useSharedValue<number>(0);
 	const isBreathing = useSharedValue<boolean>(false);
 
+	const [time, setTime] = React.useState<number>(0)
+
+	const handleTime = () => {
+		const NW_IN_MS = new Date().getTime()
+		const target = 2 * 60 * 1000 // 2 minutes  
+		setTime(target + NW_IN_MS)
+	}
 	const handleGo = () => {
 		opa.value = withTiming(0, {duration: 500})
 		indOpa.value = withDelay(500, withTiming(1, {duration: 500}))
 		setTimeout(() => {
 			isBreathing.value = true	
+			handleTime()
 		}, 500)
 	}
 	const indecatorStyle = useAnimatedStyle(() => {
@@ -49,15 +57,15 @@ export const Breathing : React.FC = () => {
 				</View>
 				<Animated.View style={[{flex: 1}, contentStyle]}>
 					<Tips tips={tips} />	
-					
-				</Animated.View>
-				<Animated.View style={[{flex:1}, indecatorStyle]}>
-					<BreathingIndicator />				
-				</Animated.View>
-				<Pressable onPress={handleGo} style={styles.row}>
-					<Text style={styles.btnTxt}>Go</Text>
+					<Pressable onPress={handleGo} style={styles.row}>
+						<Text style={styles.btnTxt}>Go</Text>
 					<Ionicons name={'arrow-forward-outline'} size={40} color={'black'} />
 				</Pressable>
+				</Animated.View>
+				<Animated.View style={[{flex:1}, indecatorStyle]}>
+					<BreathingIndicator time={time} />				
+				</Animated.View>
+				
 			</SafeAreaView>
 		</View>
 	)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
-import { ITip } from '../../utils/Tip'
+import { ITip } from '../../utils/interfaces'
 import { SharedElement } from 'react-navigation-shared-element';
 
 const { width } = Dimensions.get('window')
