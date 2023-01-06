@@ -15,17 +15,16 @@ const tips = [
 	}
 ]
 
-export const Breathing : React.FC = () => {
+export const Breathing : React.FC<any> = ({navigation}) => {
 	
 	const opa = useSharedValue<number>(1);
 	const indOpa = useSharedValue<number>(0);
 	const isBreathing = useSharedValue<boolean>(false);
-
-	const [time, setTime] = React.useState<number>(0)
+	const [time, setTime] = React.useState<number>(new Date().getTime() + (3 * 1000))
 
 	const handleTime = () => {
 		const NW_IN_MS = new Date().getTime()
-		const target = 2 * 60 * 1000 // 2 minutes  
+		const target = 20 * 1000 // 2 minutes  
 		setTime(target + NW_IN_MS)
 	}
 	const handleGo = () => {
@@ -63,7 +62,7 @@ export const Breathing : React.FC = () => {
 				</Pressable>
 				</Animated.View>
 				<Animated.View style={[{flex:1}, indecatorStyle]}>
-					<BreathingIndicator time={time} />				
+					<BreathingIndicator navigation={navigation} time={time} />				
 				</Animated.View>
 				
 			</SafeAreaView>
