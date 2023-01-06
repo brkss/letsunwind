@@ -26,10 +26,11 @@ export const Tips: React.FC<Props> = ({tips}) => {
 				{
 					tips.map((tip, key) => (
 						<View 
+							key={key}
 							style={{
 								width: width, 
 								justifyContent: 'center'	
-						}}
+							}}
 						>
 							<Text key={key} style={styles.txt}>
 								{tip.txt}
