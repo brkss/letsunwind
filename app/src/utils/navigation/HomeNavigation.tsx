@@ -1,6 +1,6 @@
 import React from 'react';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
-import { Breath, Home } from '../../screens';
+import { Breath, Home, Breathing } from '../../screens';
 
 
 const Stack = createSharedElementStackNavigator<any>();
@@ -20,7 +20,7 @@ export const HomeNavigation : React.FC = () => {
 				name={"Home"} component={Home}
 			/>
 			<Stack.Screen
-				name={"Breathing"}
+				name={"ConfigBreathing"}
 				component={Breath}
 				options={{
 					//cardStyleInterpolator: ({current: {progress}}) => ({
@@ -39,6 +39,18 @@ export const HomeNavigation : React.FC = () => {
 							animation: "fade"
 						}
 					];
+				}}
+			/>
+			<Stack.Screen 
+				name={'Breathing'}
+				component={Breathing}
+				sharedElements={() => {
+					const id = 'bt' 
+					return [
+						{
+							id: `${id}-title`
+						}
+					]
 				}}
 			/>
 		</Stack.Navigator>

@@ -1,14 +1,20 @@
 import React from 'react';
 import { Pressable, Text, Dimensions, StyleSheet } from 'react-native';
+import { SharedElement } from 'react-navigation-shared-element';
 
+interface Props {
+	onPress: () => void;
+}
 
 const { width } = Dimensions.get('window')
 
-export const StartButton : React.FC = () => {
+export const StartButton : React.FC<Props> = ({onPress}) => {
 
 	return (
-		<Pressable style={styles.container}>
-			<Text style={styles.txt}>Start</Text>
+		<Pressable onPress={onPress} style={styles.container}>
+			<SharedElement id='bt-title' >
+				<Text style={styles.txt}>Start</Text>
+			</SharedElement>
 		</Pressable>
 	)
 }

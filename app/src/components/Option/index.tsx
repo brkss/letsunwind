@@ -24,7 +24,7 @@ export const Option : React.FC<Props> = ({title, id, navigation}) => {
 			style={({pressed}) => ([{opacity: pressed ? 0.5 : 1}, styles.container])}
 			onPress={() => {
 				setOpacity(0);
-				navigation.push("Breathing", { id: id })
+				navigation.push("ConfigBreathing", { id: id })
 			}}
 		>
 				<View style={[styles.row, {opacity}]}>
