@@ -22,9 +22,23 @@ export const HomeNavigation : React.FC = () => {
 			<Stack.Screen
 				name={"Breathing"}
 				component={Breath}
+				options={{
+					//cardStyleInterpolator: ({current: {progress}}) => ({
+						//cardStyle: {opacity: progress}
+					//})
+				}}
 				sharedElements={(route) => {
 					const id = route.params.id;
-					return [`${id}-arrow`, `${id}-title`];
+					return [
+						{
+							id: `${id}-arrow`,
+							animation: "fade-in"
+						},
+						{
+							id: `${id}-title`,
+							animation: "fade"
+						}
+					];
 				}}
 			/>
 		</Stack.Navigator>

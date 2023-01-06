@@ -13,7 +13,6 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 export const Breath : React.FC<any> = ({route, navigation}) => {
 
 	const rot = useSharedValue<number>(0); 
-	const isLeaving = useSharedValue<boolean>(false)
 	const isGestureActive = useSharedValue<boolean>(false);
 	const translation = useVector()
 	const  id  = route.params.id; 
@@ -32,7 +31,6 @@ export const Breath : React.FC<any> = ({route, navigation}) => {
 			if (snapBack)
 			{
 				runOnJS(navigation.goBack)();
-				isLeaving.value = true
 			}	
 			else {
 				isGestureActive.value = false;
@@ -78,22 +76,20 @@ export const Breath : React.FC<any> = ({route, navigation}) => {
 	return (
 		<PanGestureHandler onGestureEvent={onGestureEvent}>
 			<Animated.View style={[style, {backgroundColor: 'black'}]}>
-					<SafeAreaView style={{flex: 1}}>
 						<View style={styles.container}>
 							<View style={{flexDirection: 'row', justifyContent: 'space-evenly', paddingTop: 30}}>
-								<AnimatedPressable style={arrowStyle}>
+								<AnimatedPressable onPress={() => navigation.goBack()} style={arrowStyle}>
 									<SharedElement id={`${id}-arrow`}>
 										<Ionicons name={'arrow-up-outline'} color={'white'} size={40} />
 									</SharedElement>		
 								</AnimatedPressable>
 								<SharedElement id={`${id}-title`}>
-									<Text style={styles.heading}>Blending</Text>
+									<Text style={styles.heading}>Reflection</Text>
 								</SharedElement>		
 							</View>
 							<Fluid />
 							<StartButton />
 						</View>
-					</SafeAreaView>
 			</Animated.View>
 		</PanGestureHandler>
 	)

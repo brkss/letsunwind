@@ -6,7 +6,7 @@ import { cartesian2Canvas, Vector, serialize, createPath, addCurve} from 'react-
 import Animated, { Extrapolate, interpolate, SharedValue, useAnimatedProps, interpolateColor } from 'react-native-reanimated';
 
 const { width } = Dimensions.get('window')
-const RATIO = .9;
+const RATIO = .7;
 const SIZE = width * RATIO 
 const C = 0.55228474983079
 const CENTER = {x: 1, y: 1}

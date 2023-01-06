@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 		borderRadius: 100,
 		justifyContent: 'center',
 		alignItems: 'flex-end',
-		//backgroundColor: '#8FD1FF',
+		backgroundColor: '#8FD1FF',
 		position: 'absolute',
 		left: -50,
 		paddingRight: 15

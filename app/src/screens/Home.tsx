@@ -3,6 +3,7 @@ import {  SafeAreaView, View, StyleSheet } from 'react-native';
 import { } from 'react-native-gesture-handler';
 import { Option } from '../components'
 import { ScrollView } from 'react-native-gesture-handler';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const options = [
 	{
@@ -17,8 +18,16 @@ const options = [
 
 export const Home : React.FC<any> = ({navigation}) => {
 
+	const insets = useSafeAreaInsets()
+	const insetsStyles = {
+			paddingTop: insets.top,
+            paddingLeft: insets.left,
+            paddingRight: insets.right,
+            paddingBottom: insets.bottom
+	}
+
 	return (
-		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
+		<View style={[styles.safearea, insetsStyles]}>
 			<View style={styles.container}>
 				<ScrollView style={styles.content}>
 					{
@@ -28,13 +37,17 @@ export const Home : React.FC<any> = ({navigation}) => {
 					}
 				</ScrollView>
 			</View>
-		</SafeAreaView>
+		</View>
 	)
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+	},
+	safearea: {
+		flex: 1,
+		backgroundColor: 'black',
 	},
 	content: {
 		paddingTop: 30
