@@ -10,7 +10,6 @@ export const useCountDown = (targetDate: number) => {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			console.log("calc time :", countDownDate)
 			setCountDown(countDownDate - new Date().getTime())
 		}, 1000)
 		return () => clearInterval(interval);	

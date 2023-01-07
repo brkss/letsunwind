@@ -1,7 +1,6 @@
 import React from 'react';
 import {  SafeAreaView, View, StyleSheet } from 'react-native';
-import { } from 'react-native-gesture-handler';
-import { Option } from '../components'
+import { Option, Header } from '../components'
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -29,6 +28,7 @@ export const Home : React.FC<any> = ({navigation}) => {
 	return (
 		<View style={[styles.safearea, insetsStyles]}>
 			<View style={styles.container}>
+				<Header />
 				<ScrollView style={styles.content}>
 					{
 						options.map((option, key) => (

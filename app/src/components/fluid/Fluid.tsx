@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import Animated, { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
+import Animated, { runOnJS, useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
 import { Slide } from './Slide';
 import * as Haptics from 'expo-haptics';
 
@@ -10,29 +10,44 @@ const { width } = Dimensions.get('window')
 
 const slides =[
 	{
-		color: "#65FFCE",
+		color: "#B5FFE9",
 		aspectRatio: 439.75 / 470.5,
+		txt: "1min"
+	},
+	{
+		color: "#B0BBF0",
+		aspectRatio: 400.5 / 429.5,
 		txt: "2min"
 	},
 	{
-		color: "#E1FDA2",
-		aspectRatio: 400.5 / 429.5,
-		txt: "5min"
+		color: "#F4E04D",
+		aspectRatio: 391.25 / 520,
+		txt: "3min"
 	},
 	{
-		color: "#C8FD4E",
+		color: "#F8D8D6",
 		aspectRatio: 391.25 / 520,
-		txt: "10min"
+		txt: "4min"
+	},
+	{
+		color: "#D3F7AC",
+		aspectRatio: 391.25 / 520,
+		txt: "5min"
 	},
 ]; 
 
-export const Fluid : React.FC = () => {
+interface Props {
+	onChange: (t: number) => void;
+}
+
+export const Fluid : React.FC<Props> = ({onChange}) => {
 
 	const x = useSharedValue(0);
 	const scrollHandler = useAnimatedScrollHandler({
 		onScroll: (e) => {
-			//if(e.contentOffset.x % width == 0)
-			//Haptics.selectionAsync()
+			if(e.contentOffset.x % width == 0)
+				runOnJS(Haptics.selectionAsync)()
+			runOnJS(onChange)(Math.floor((e.contentOffset.x / width) + 1))
 			x.value = e.contentOffset.x
 		}
 	})

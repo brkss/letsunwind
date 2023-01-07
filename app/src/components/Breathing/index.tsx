@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
+import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withDelay, withRepeat, withTiming } from 'react-native-reanimated';
 import { useCountDown } from '../../utils/hooks/countDown'
 
 const { width } = Dimensions.get('window')
@@ -21,14 +21,19 @@ export const BreathingIndicator : React.FC<Props> = ({time, navigation}) => {
 
 	const ratio = useSharedValue<number>(0.05)
 
+	const isInhaling = useSharedValue<boolean>(true)
 	const [minutes, seconds] = useCountDown(time)
-	
 
 	React.useEffect(() => {
-		ratio.value = withRepeat(withTiming(.78, {duration: 8000}, (finished, _) => {
-			if(finished)
-				console.log("finished animation ")
-		}), -1, true)	
+		// brething indecator circle animation !
+		ratio.value = withRepeat(
+			withDelay(1000, 
+				withRepeat(
+					withTiming(.78, {duration: 6800}, (finished, _) => {
+						if(finished)
+							isInhaling.value = !isInhaling.value	
+					}), -1, true	
+			)), -1, true)	
 	}, [])
 
 	const innerCircleStyle = useAnimatedStyle(() => {
@@ -43,7 +48,8 @@ export const BreathingIndicator : React.FC<Props> = ({time, navigation}) => {
 
 	return (
 		<View style={{flex: 1}}>
-			<Text style={styles.countDown}>{formatTime(minutes)}:{formatTime(seconds)}</Text>
+			<Text style={styles.countDown}>{isInhaling.value ? "inhale" : "exhale"}</Text>
+			<Text style={styles.behavior}>{formatTime(minutes)}:{formatTime(seconds)}</Text>
 			<View style={styles.container}>
 				<View style={styles.circle}>
 					<Animated.View style={[styles.innerCircle, innerCircleStyle]} />
@@ -79,5 +85,13 @@ const styles = StyleSheet.create({
 		fontSize: 50,
 		textAlign: 'center',
 		marginTop: 20,
+	},
+	behavior: {
+		fontFamily: 'cooper',
+		fontSize: 30,
+		textAlign: 'center',
+		marginTop: 10,
+		color: '#434343'
 	}
+
 })

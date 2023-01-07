@@ -15,16 +15,17 @@ const tips = [
 	}
 ]
 
-export const Breathing : React.FC<any> = ({navigation}) => {
+export const Breathing : React.FC<any> = ({route, navigation}) => {
 	
+	const { minutes } = route.params
 	const opa = useSharedValue<number>(1);
 	const indOpa = useSharedValue<number>(0);
 	const isBreathing = useSharedValue<boolean>(false);
-	const [time, setTime] = React.useState<number>(new Date().getTime() + (3 * 1000))
+	const [time, setTime] = React.useState<number>(new Date().getTime() + (24 * 60 * 60 * 1000))
 
 	const handleTime = () => {
 		const NW_IN_MS = new Date().getTime()
-		const target = 20 * 1000 // 2 minutes  
+		const target = minutes * 60 * 1000 // 2 minutes  
 		setTime(target + NW_IN_MS)
 	}
 	const handleGo = () => {
@@ -57,7 +58,7 @@ export const Breathing : React.FC<any> = ({navigation}) => {
 				<Animated.View style={[{flex: 1}, contentStyle]}>
 					<Tips tips={tips} />	
 					<Pressable onPress={handleGo} style={styles.row}>
-						<Text style={styles.btnTxt}>Go</Text>
+						<Text style={styles.btnTxt}>Go {minutes}min </Text>
 					<Ionicons name={'arrow-forward-outline'} size={40} color={'black'} />
 				</Pressable>
 				</Animated.View>

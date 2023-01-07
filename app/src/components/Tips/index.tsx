@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import { ITip } from '../../utils/interfaces'
 import { SharedElement } from 'react-navigation-shared-element';
+import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window')
 
@@ -29,12 +30,19 @@ export const Tips: React.FC<Props> = ({tips}) => {
 							key={key}
 							style={{
 								width: width, 
-								justifyContent: 'center'	
+								justifyContent: 'center',
+								//alignItems: 'center'
 							}}
 						>
 							<Text key={key} style={styles.txt}>
 								{tip.txt}
 							</Text>
+							
+							{ key < tips.length - 1 ?
+								<View style={{width: width *.9, alignItems: 'center'}}>
+									<Ionicons name='arrow-forward-outline' color='black' size={30} style={{ marginTop: 10}} />
+								</View>
+							: null}
 						</View>
 						
 					)) 

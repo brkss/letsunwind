@@ -16,6 +16,7 @@ export const Breath : React.FC<any> = ({route, navigation}) => {
 	const isGestureActive = useSharedValue<boolean>(false);
 	const translation = useVector()
 	const  id  = route.params.id; 
+	const [minutes, setMinutes] = React.useState(1);
 
 	const onGestureEvent = useAnimatedGestureHandler({
 		onStart: () => (isGestureActive.value = true),
@@ -35,7 +36,7 @@ export const Breath : React.FC<any> = ({route, navigation}) => {
 			const snapBack = snapPoint(translationY, velocityY, [0, height]) === height;
 			const snapUp = snapPoint(translationY, velocityY, [0, -height / 2]) === -height/2 
 			if(snapUp){
-				runOnJS(navigation.push)("Breathing")
+				runOnJS(navigation.push)("Breathing", {minutes: minutes})
 			}
 			if (snapBack)
 			{
@@ -96,8 +97,8 @@ export const Breath : React.FC<any> = ({route, navigation}) => {
 									<Text style={styles.heading}>Reflection</Text>
 								</SharedElement>		
 							</View>
-							<Fluid />
-							<StartButton onPress={() => navigation.push('Breathing')} />
+							<Fluid onChange={(t) => setMinutes(t)} />
+							<StartButton onPress={() => navigation.push('Breathing', {minutes: minutes})} />
 						</View>
 			</Animated.View>
 		</PanGestureHandler>

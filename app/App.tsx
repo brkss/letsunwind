@@ -10,6 +10,7 @@ export default function App() {
 	const [fontsLoaded] = useFonts({
 		'cooper': require('./assets/fonts/CooperBlack.ttf'),
 		'AvBold': require('./assets/fonts/AvBold.otf'),
+		'AvReg': require('./assets/fonts/AvReg.otf'),
 	});
 
 	const onLayoutRootView = useCallback(async () => {
