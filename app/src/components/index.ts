@@ -5,3 +5,4 @@ export * from './Option';
 export * from './Tips';
 export * from './Breathing';
 export * from './Header';
+export * from './SessionElement';

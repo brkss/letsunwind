@@ -28,7 +28,7 @@ export const Home : React.FC<any> = ({navigation}) => {
 	return (
 		<View style={[styles.safearea, insetsStyles]}>
 			<View style={styles.container}>
-				<Header />
+				<Header clicked={() => navigation.navigate("Profile")} />
 				<ScrollView style={styles.content}>
 					{
 						options.map((option, key) => (

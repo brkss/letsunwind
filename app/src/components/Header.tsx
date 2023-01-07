@@ -1,13 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 
-export const Header : React.FC = () => {
+interface Props {
+	clicked: () => void;
+}
+
+export const Header : React.FC<Props> = ({clicked}) => {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.profile}>
+			<Pressable onPress={clicked}style={styles.profile}>
 				<Text style={styles.txt}></Text>
-			</View>
+			</Pressable>
 		</View>
 	)
 }

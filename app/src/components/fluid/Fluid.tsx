@@ -37,6 +37,7 @@ const slides =[
 ]; 
 
 interface Props {
+	data: 
 	onChange: (t: number) => void;
 }
 
