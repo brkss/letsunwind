@@ -10,7 +10,7 @@ const validateEmail = (email: string) => {
     );
 };
 
-export const Informations : React.FC = () => {
+export const Register: React.FC = () => {
 
 	const [err, setError] = React.useState("")
 	const [form, setForm] = React.useState<any>({});
@@ -43,13 +43,18 @@ export const Informations : React.FC = () => {
 			setError("Invalid Email !")
 			return;
 		}
+		const email_domain = form.email.split('@')[1];
+		if (email_domain !== 'um6p.ma' && email_domain !== 'student.1337.ma'){
+			setError(`Unkown Email!`)
+			return;
+		}
 		setError("")
 	}
 
 	return (
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
 			<View style={styles.container}>
-				<Text style={[styles.heading, {color: err ? "#ffb67a" : "white"}]}>{err || "Almot There"}</Text>
+				<Text style={[styles.heading, {color: err ? "#ffb67a" : "white"}]}>{err || "Almost There ✨"}</Text>
 				<View style={{height: 10}} />
 				<Input onChange={(t) => handleFormChange("name", t)} label="What's your name" />				
 				<View style={{height: 10}} />
@@ -57,8 +62,8 @@ export const Informations : React.FC = () => {
 				<View style={{height: 10}} />
 				<Input onChange={(t) => handleFormChange("age", t)} label="How old are you?" />				
 				<View style={{height: 40}} />
-				<Button filled clicked={submit} txt={"Enter"} />
-			</View>		
+				<Button filled clicked={submit} txt={"Go"} />
+			</View>
 		</SafeAreaView>
 	)
 }

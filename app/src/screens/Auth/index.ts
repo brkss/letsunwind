@@ -1,1 +1,2 @@
-export * from './Informations'
+export * from './Register'
+export * from './Confirmation'

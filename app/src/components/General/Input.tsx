@@ -11,7 +11,7 @@ export const Input : React.FC<Props> = ({label, onChange}) => {
 
 	return (
 		<View style={styles.container}>
-			<TextInput onChangeText={onChange} placeholderTextColor={'#969595'} placeholder={label} style={styles.input} />
+			<TextInput autoCapitalize='none' onChangeText={onChange} placeholderTextColor={'#969595'} placeholder={label} style={styles.input} />
 		</View>	
 	)
 }
