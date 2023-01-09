@@ -1,16 +1,10 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet, Text } from 'react-native';
+import { Pressable, SafeAreaView, View, StyleSheet, Text } from 'react-native';
 import { Input, Button } from '../../components';
+import { validateEmail } from '../../utils/helpers/validateEmail';
 
-const validateEmail = (email: string) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-};
 
-export const Register: React.FC = () => {
+export const Register: React.FC<any> = ({navigation}) => {
 
 	const [err, setError] = React.useState("")
 	const [form, setForm] = React.useState<any>({});
@@ -63,6 +57,9 @@ export const Register: React.FC = () => {
 				<Input onChange={(t) => handleFormChange("age", t)} label="How old are you?" />				
 				<View style={{height: 40}} />
 				<Button filled clicked={submit} txt={"Go"} />
+				<Pressable onPress={() => navigation.navigate("Login")} style={styles.link}>
+					<Text style={styles.linkText}>You been here before ? login !</Text>
+				</Pressable>
 			</View>
 		</SafeAreaView>
 	)
@@ -80,5 +77,15 @@ const styles = StyleSheet.create({
 		marginBottom: 30,
 		padding: 10,
 		fontFamily: 'cooper'
+	},
+	link: {
+		marginTop: 10	,
+		//marginBottom: 20	
+	},
+	linkText: {
+		color: 'white',
+		fontFamily: 'AvBold',
+		fontSize: 15	,
+		paddingLeft: 5
 	}
 })
