@@ -1,8 +1,8 @@
 import React from 'react';
-import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Pressable } from 'react-native';
 import { Input, Button } from '../../components'
 
-export const Login : React.FC  = () => {
+export const Login : React.FC<any>  = ({navigation}) => {
 
 	return (
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
@@ -11,6 +11,11 @@ export const Login : React.FC  = () => {
 				<View style={{height: 30}} />
 				<Input label='Your Email' onChange={(t) => {}} />
 				<Button txt="Login" clicked={() => {}} filled />
+				<Pressable onPress={() => navigation.navigate("Register")} style={styles.link}>
+					<Text style={styles.linkText}>new here ? create account !</Text>
+				</Pressable>
+
+
 			</View>
 		</SafeAreaView>
 	)
@@ -25,6 +30,17 @@ const styles= StyleSheet.create({
 	title: {
 		color: 'white',
 		fontFamily: 'cooper',
-		fontSize: 30
+		fontSize: 30,
+		paddingStart: 10
+		//textAlign: 'center'
+	},
+	link: {
+		marginTop: 10	,
+		//marginBottom: 20	
+	},
+	linkText: {
+		color: 'white',
+		fontFamily: 'AvBold',
+		fontSize: 15	
 	}
 })
