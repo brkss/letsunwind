@@ -10,7 +10,7 @@ import { SharedElement } from 'react-navigation-shared-element';
 const { height, width } = Dimensions.get('window')
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
-export const Breath : React.FC<any> = ({route, navigation}) => {
+export const ConfigReflect : React.FC<any> = ({route, navigation}) => {
 
 	const rot = useSharedValue<number>(0); 
 	const isGestureActive = useSharedValue<boolean>(false);
@@ -36,7 +36,7 @@ export const Breath : React.FC<any> = ({route, navigation}) => {
 			const snapBack = snapPoint(translationY, velocityY, [0, height]) === height;
 			const snapUp = snapPoint(translationY, velocityY, [0, -height / 2]) === -height/2 
 			if(snapUp){
-				runOnJS(navigation.push)("Breathing", {minutes: minutes})
+				runOnJS(navigation.push)("Reflect", {minutes: minutes})
 			}
 			if (snapBack)
 			{
@@ -94,7 +94,7 @@ export const Breath : React.FC<any> = ({route, navigation}) => {
 									</SharedElement>		
 								</AnimatedPressable>
 								<SharedElement id={`${id}-title`}>
-									<Text style={styles.heading}>Breathing</Text>
+									<Text style={styles.heading}>Reflection</Text>
 								</SharedElement>		
 							</View>
 							<Fluid onChange={(t) => setMinutes(t)} />
