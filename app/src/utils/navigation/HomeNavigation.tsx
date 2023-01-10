@@ -66,12 +66,37 @@ export const HomeNavigation : React.FC = () => {
 				}}
 			/>
 			
+
 			<Stack.Screen
 				name={'Reflect'}
 				component={Reflect} 
+				options={{
+					presentation: 'modal',
+					gestureEnabled: true
+				}}
 			/>
 			<Stack.Screen
 				name={'ConfigReflect'}
+				options={{
+					//cardStyleInterpolator: ({current: {progress}}) => ({
+						//cardStyle: {opacity: progress}
+					//})
+				}}
+				sharedElements={(route) => {
+					const id = route.params.id;
+					return [
+						{
+							id: `${id}-arrow`,
+							animation: "fade-in"
+						},
+						{
+							id: `${id}-title`,
+							animation: "fade"
+						}
+					];
+				}}
+
+								
 				component={ConfigReflect}
 			/>
 		</Stack.Navigator>

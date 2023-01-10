@@ -1,6 +1,7 @@
 import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Pressable } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withDelay, withTiming } from 'react-native-reanimated'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 const txt = [
 	"1- Lorem Ipsum is simply dummy text of the printing and typesetting industry ?",
@@ -38,11 +39,16 @@ export const Reflect : React.FC<any> = ({navigation}) => {
 	return (
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
 			<Pressable onPress={next} style={styles.container}>
-				<Text style={styles.heading}>Reflect</Text>
+				<View>
+					<Text style={styles.heading}>Reflect</Text>
+					<View style={{justifyContent: 'center', alignItems: 'center'}}>
+						<Ionicons name={'arrow-down-outline'} size={40} color={'white'} />
+					</View>
+				</View>
 				<Animated.Text  style={[styles.txt, txtStyle]}>{txt[current]}</Animated.Text>
 				<Text style={styles.hint}>tap</Text>
 			</Pressable>
-		</SafeAreaView>		
+		</SafeAreaView>
 	)
 }
 

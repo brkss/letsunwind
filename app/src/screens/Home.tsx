@@ -51,5 +51,11 @@ const styles = StyleSheet.create({
 	},
 	content: {
 		paddingTop: 30
+	},
+	line: {
+		borderTopWidth: 1,
+		borderTopColor: 'white',
+		margin: 20,
+		opacity: .7,
 	}
 })

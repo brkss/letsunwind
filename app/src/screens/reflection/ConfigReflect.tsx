@@ -21,16 +21,13 @@ export const ConfigReflect : React.FC<any> = ({route, navigation}) => {
 	const onGestureEvent = useAnimatedGestureHandler({
 		onStart: () => (isGestureActive.value = true),
 		onActive: ({translationX, translationY, velocityY}) => {
-		
-			console.log("gest : ", translationY)
+			//console.log("gest : ", translationY)
 			if (translationY > -(width / 3))
 				translation.y.value = translationY
 			translation.x.value = translationX
 			if (translationY > height * .05){
 				rot.value = withTiming(90, {duration: 400}) 
 			}
-			
-
 		},
 		onEnd: ({translationY, velocityY}) => {
 			const snapBack = snapPoint(translationY, velocityY, [0, height]) === height;

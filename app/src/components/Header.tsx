@@ -10,7 +10,7 @@ export const Header : React.FC<Props> = ({clicked}) => {
 	return (
 		<View style={styles.container}>
 			<Pressable onPress={clicked}style={styles.profile}>
-				<Text style={styles.txt}></Text>
+				<Text style={styles.txt}>me</Text>
 			</Pressable>
 		</View>
 	)
@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
 	txt: {
 		fontFamily: 'cooper',
 		color: 'white',
-		fontSize: 27
+		fontSize: 20
 	}
 })
