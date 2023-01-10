@@ -43,6 +43,8 @@ export const Register: React.FC<any> = ({navigation}) => {
 			return;
 		}
 		setError("")
+		console.log("register data : ", form)
+		//navigation.navigate("HomeNav")
 	}
 
 	return (

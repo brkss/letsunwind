@@ -11,7 +11,7 @@ const txt = [
 	"6- Lorem Ipsum is simply dummy text of the printing and typesetting industry ?",
 ]
 
-export const Reflect : React.FC = () => {
+export const Reflect : React.FC<any> = ({navigation}) => {
 
 	const opacity = useSharedValue<number>(1)
 	// animation !
@@ -19,6 +19,7 @@ export const Reflect : React.FC = () => {
 	const next = () => {
 		if(current >= txt.length - 1){
 			setCurrent(0);
+			navigation.navigate('Home')
 			return;
 		}
 		opacity.value = withTiming(0, {duration: 700})
@@ -37,7 +38,9 @@ export const Reflect : React.FC = () => {
 	return (
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
 			<Pressable onPress={next} style={styles.container}>
+				<Text style={styles.heading}>Reflect</Text>
 				<Animated.Text  style={[styles.txt, txtStyle]}>{txt[current]}</Animated.Text>
+				<Text style={styles.hint}>tap</Text>
 			</Pressable>
 		</SafeAreaView>		
 	)
@@ -46,13 +49,23 @@ export const Reflect : React.FC = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: 'center',
-		padding: 10
+		justifyContent: 'space-between',
+		padding: 20
 	},
 	txt: {
 		color: 'white',
 		textAlign: 'center',
-		fontSize: 20,
+		fontSize: 18,
 		lineHeight: 30
+	},
+	heading: {
+		color: 'white',
+		fontFamily: 'cooper',
+		textAlign: 'center',
+		fontSize: 40
+	},
+	hint:{
+		color: 'white',
+		textAlign: 'center'
 	}
 })

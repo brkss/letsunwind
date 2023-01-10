@@ -1,6 +1,6 @@
 import React from 'react';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
-import { Breath, Home, Breathing, Profile } from '../../screens';
+import { Breath, Home, Breathing, Profile, Reflect } from '../../screens';
 
 const Stack = createSharedElementStackNavigator<any>();
 export const HomeNavigation : React.FC = () => {
@@ -64,6 +64,11 @@ export const HomeNavigation : React.FC = () => {
 					presentation: 'modal',
 					gestureEnabled: true
 				}}
+			/>
+			
+			<Stack.Screen
+				name={'Reflect'}
+				component={Reflect} 
 			/>
 		</Stack.Navigator>
 	)

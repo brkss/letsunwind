@@ -46,7 +46,7 @@ export const Intro : React.FC<any> = ({navigation}) => {
 				else{
 					console.log("clear interval")
 					regBtnOpacity.value = withTiming(1, {duration: 800})
-					//--> navigation.navigate('HomeNav')
+					navigation.navigate('Register')
 					clearInterval(interval)
 				}
 				display();

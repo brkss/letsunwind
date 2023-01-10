@@ -4,13 +4,17 @@ import { Input, Button } from '../../components'
 
 export const Login : React.FC<any>  = ({navigation}) => {
 
+	const submit = () => {
+		navigation.navigate("HomeNav")
+	}
+
 	return (
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
 			<View style={styles.container}>
 				<Text style={styles.title}>Login</Text>		
 				<View style={{height: 30}} />
 				<Input label='Your Email' onChange={(t) => {}} />
-				<Button txt="Login" clicked={() => {}} filled />
+				<Button txt="Login" clicked={submit} filled />
 				<Pressable onPress={() => navigation.navigate("Register")} style={styles.link}>
 					<Text style={styles.linkText}>new here ? create account !</Text>
 				</Pressable>
