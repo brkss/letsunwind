@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Text, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { PanGestureHandler } from 'react-native-gesture-handler'
 import Animated, { Extrapolate, interpolate, runOnJS, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
@@ -9,7 +9,11 @@ import { AwarnessItem, genHtml } from '../../utils/data/awarness'
 import { WebView } from 'react-native-webview' 
 
 const { width, height } = Dimensions.get("window") 
-
+/*
+const item = {
+	gradient: ["#f6c0ba", "#f89999"]
+}
+*/
 export const Info : React.FC<any> = ({navigation, route}) => {
 
 	const item  = route.params.item as AwarnessItem
@@ -54,7 +58,6 @@ export const Info : React.FC<any> = ({navigation, route}) => {
 		<PanGestureHandler onGestureEvent={onGestureEvent}>
 			<Animated.View style={[style, {borderRadius: 40, flex: 1, backgroundColor: 'black'}]}>
 				<View style={styles.container}>
-					<ScrollView>
 					<SharedElement id={`${item.id}-gradient`}>
 						<LinearGradient  colors={[item.gradient[0], item.gradient[1]]} style={styles.card}>
 						</LinearGradient>
@@ -62,16 +65,11 @@ export const Info : React.FC<any> = ({navigation, route}) => {
 					<SharedElement id={`${item.id}-title`}>
 						<Text style={styles.title}>{item.title}</Text>
 					</SharedElement>
-					<Text style={{color: 'white'}}>{item.content}</Text>					
-					{/*<WebView
-						style={{backgroundColor: 'blue'}}
+					<WebView
 						automaticallyAdjustContentInsets
 						originWhitelist={['*']}
-						javaScriptEnabled
-						scalesPageToFit
 						source={{html: genHtml(item.content)}}
-					/>*/}
-					</ScrollView>
+					/>
 				</View>
 			</Animated.View>
 		</PanGestureHandler>
@@ -80,7 +78,6 @@ export const Info : React.FC<any> = ({navigation, route}) => {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		padding: 20	
 	},
 	card: {

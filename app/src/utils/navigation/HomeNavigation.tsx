@@ -96,6 +96,9 @@ export const HomeNavigation : React.FC = () => {
 			/>
 			<Stack.Screen
 				name={"Awarness"}
+				options={{
+					gestureEnabled: true
+				}}
 				component={AwarenessList}
 			/>
 			<Stack.Screen
