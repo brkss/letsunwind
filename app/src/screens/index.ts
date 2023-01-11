@@ -4,3 +4,4 @@ export * from './Profile'
 export * from './reflection';
 export * from './Intro'
 export * from './Auth'
+export * from './Awareness'

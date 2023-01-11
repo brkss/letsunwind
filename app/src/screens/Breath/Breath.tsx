@@ -20,7 +20,7 @@ export const Breath : React.FC<any> = ({route, navigation}) => {
 
 	const onGestureEvent = useAnimatedGestureHandler({
 		onStart: () => (isGestureActive.value = true),
-		onActive: ({translationX, translationY, velocityY}) => {
+		onActive: ({translationX, translationY }) => {
 		
 			console.log("gest : ", translationY)
 			if (translationY > -(width / 3))

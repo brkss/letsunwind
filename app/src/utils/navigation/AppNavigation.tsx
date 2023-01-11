@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeNavigation } from './HomeNavigation';
-import { Login, Confirmation, Reflect, Intro, Register} from '../../screens/'
+import { AwarenessList } from '../../screens/'
 
 export const AppNavigation : React.FC = () => {
 
@@ -10,7 +10,6 @@ export const AppNavigation : React.FC = () => {
 	return (
 		<Navigator>
 			<Group screenOptions={{headerShown: false}}>
-				
 				<Screen name={'HomeNav'} component={HomeNavigation} />
 			</Group>
 		</Navigator>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
-import { Breath, Home, Breathing, Profile, Reflect, ConfigReflect } from '../../screens';
+import { Breath, Home, Breathing, Profile, Reflect, ConfigReflect, Info, AwarenessList } from '../../screens';
 
 const Stack = createSharedElementStackNavigator<any>();
 export const HomeNavigation : React.FC = () => {
@@ -77,11 +77,6 @@ export const HomeNavigation : React.FC = () => {
 			/>
 			<Stack.Screen
 				name={'ConfigReflect'}
-				options={{
-					//cardStyleInterpolator: ({current: {progress}}) => ({
-						//cardStyle: {opacity: progress}
-					//})
-				}}
 				sharedElements={(route) => {
 					const id = route.params.id;
 					return [
@@ -98,6 +93,27 @@ export const HomeNavigation : React.FC = () => {
 
 								
 				component={ConfigReflect}
+			/>
+			<Stack.Screen
+				name={"Awarness"}
+				component={AwarenessList}
+			/>
+			<Stack.Screen
+				name={"Info"}
+				sharedElements={(route) => {
+					const { item } = route.params 
+					return [
+						{
+							id: `${item.id}-gradient`,
+							animation: 'fade'
+						},
+						{
+							id: `${item.id}-title`,
+							animation: 'fade'
+						}
+					]
+				}}
+				component={Info}
 			/>
 		</Stack.Navigator>
 	)

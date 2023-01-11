@@ -1,6 +1,6 @@
 import React from 'react';
 import {  SafeAreaView, View, StyleSheet } from 'react-native';
-import { Option, Header } from '../components'
+import { Option, Header, Button } from '../components'
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -35,6 +35,8 @@ export const Home : React.FC<any> = ({navigation}) => {
 							<Option key={key} navigation={navigation} id={option.id} title={option.name} />
 						))
 					}
+					<View style={styles.line} />
+					<Button txt='Learn More' clicked={() => navigation.navigate("Awarness")} filled />
 				</ScrollView>
 			</View>
 		</View>
