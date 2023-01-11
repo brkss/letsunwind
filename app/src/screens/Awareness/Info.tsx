@@ -54,23 +54,24 @@ export const Info : React.FC<any> = ({navigation, route}) => {
 		<PanGestureHandler onGestureEvent={onGestureEvent}>
 			<Animated.View style={[style, {borderRadius: 40, flex: 1, backgroundColor: 'black'}]}>
 				<View style={styles.container}>
-					<ScrollView>
-					<SharedElement id={`${item.id}-gradient`}>
-						<LinearGradient  colors={[item.gradient[0], item.gradient[1]]} style={styles.card}>
-						</LinearGradient>
-					</SharedElement>
-					<SharedElement id={`${item.id}-title`}>
-						<Text style={styles.title}>{item.title}</Text>
-					</SharedElement>
-					<Text style={{color: 'white'}}>{item.content}</Text>					
-					{/*<WebView
-						style={{backgroundColor: 'blue'}}
-						automaticallyAdjustContentInsets
-						originWhitelist={['*']}
-						javaScriptEnabled
-						scalesPageToFit
-						source={{html: genHtml(item.content)}}
-					/>*/}
+					<View style={{height: 7, width: '50%', backgroundColor: 'white', borderRadius: 10, marginBottom: 10, alignSelf: 'center'}} />
+					<ScrollView showsVerticalScrollIndicator={false}>
+						<SharedElement id={`${item.id}-gradient`}>
+							<LinearGradient  colors={[item.gradient[0], item.gradient[1]]} style={styles.card}>
+							</LinearGradient>
+						</SharedElement>
+						<SharedElement id={`${item.id}-title`}>
+							<Text style={styles.title}>{item.title}</Text>
+						</SharedElement>
+						<Text style={{color: 'white', fontSize: 16}}>{item.content}</Text>					
+						{/*<WebView
+							style={{backgroundColor: 'blue'}}
+							automaticallyAdjustContentInsets
+							originWhitelist={['*']}
+							javaScriptEnabled
+							scalesPageToFit
+							source={{html: genHtml(item.content)}}
+						/>*/}
 					</ScrollView>
 				</View>
 			</Animated.View>

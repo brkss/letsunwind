@@ -24,7 +24,7 @@ export const AwarenessCard : React.FC<Props> = ({navigation, id, title, gradient
 	})
 
 	return(
-		<View style={[styles.container, {opacity}]}>
+		<Pressable onPress={() => {setOpacity(0);clicked()}} style={[styles.container, {opacity}]}>
 			<View>
 				<SharedElement id={`${id}-gradient`}>
 					<LinearGradient colors={[gradient[0], gradient[1]]} style={styles.card}>
@@ -34,12 +34,7 @@ export const AwarenessCard : React.FC<Props> = ({navigation, id, title, gradient
 					<Text style={styles.title}>{title}</Text>
 				</SharedElement>
 			</View>
-			<View>
-				<Pressable onPress={() => {setOpacity(0);clicked()}} style={styles.btn}>
-					<Text style={styles.btnText}>Learn More</Text>
-				</Pressable>
-			</View>
-		</View>
+		</Pressable>
 	)
 }
 
@@ -63,16 +58,5 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		//textAlign: 'center'
 	},
-	btn: {
-		padding: 20,
-		backgroundColor: 'white',
-		borderRadius: 100,
-		width: width * .5,
-	},
-	btnText: {
-		fontFamily: 'cooper',
-		fontSize: 20,
-		color: 'black',
-		textAlign: 'center',
-	}
+	
 })
