@@ -65,8 +65,6 @@ export const HomeNavigation : React.FC = () => {
 					gestureEnabled: true
 				}}
 			/>
-			
-
 			<Stack.Screen
 				name={'Reflect'}
 				component={Reflect} 
@@ -90,8 +88,6 @@ export const HomeNavigation : React.FC = () => {
 						}
 					];
 				}}
-
-								
 				component={ConfigReflect}
 			/>
 			<Stack.Screen
@@ -121,6 +117,9 @@ export const HomeNavigation : React.FC = () => {
 			<Stack.Screen
 				name="Survey"
 				component={Survey}
+				options={{
+					gestureEnabled: true
+				}}
 			/>
 			<Stack.Screen
 				name="Result"

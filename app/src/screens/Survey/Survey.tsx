@@ -2,10 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 import { Choices, Button } from '../../components'
-import { survey } from '../../utils/data/anxiety.survey';
+//import { survey } from '../../utils/data/anxiety.survey';
+import { Survey as ISurvey } from '../../utils//types/Survey'
 
-export const Survey : React.FC<any> = ({navigation}) => {
+export const Survey : React.FC<any> = ({navigation, route}) => {
 
+	const { survey } = route.params; 
 	const opacity = useSharedValue<number>(1)
 	const [currentQst, setCurrentQst] = React.useState<number>(0)
 	const [tmp, setTmp] = React.useState<number>(-1);

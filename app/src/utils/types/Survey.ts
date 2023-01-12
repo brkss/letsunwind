@@ -1,8 +1,9 @@
 
 export interface Survey {
-	question: Question[];
-	choices: Choice[];
-	results: Result[];
+	name: 		string
+	question: 	Question[];
+	choices: 	Choice[];
+	results: 	Result[];
 }
 
 export interface Question {

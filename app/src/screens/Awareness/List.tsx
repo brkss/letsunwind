@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native';
 import { AwarenessCard } from '../../components'
-import { _data } from '../../utils/data/awarness'
+import { _data,  } from '../../utils/data/awarness'
 
 const { width } = Dimensions.get('window')
 export const AwarenessList : React.FC<any> = ({navigation}) => {
@@ -23,9 +23,7 @@ export const AwarenessList : React.FC<any> = ({navigation}) => {
 								navigation={navigation}
 								clicked={() => navigation.navigate("Info", {item: elm})}
 								key={key}
-								title={elm.title}
-								gradient={elm.gradient} 
-								id={elm.id}
+								item={elm}			
 							/>
 						))
 					}					

@@ -2,6 +2,7 @@ import { Survey } from '../types/Survey'
 
 
 export const survey: Survey = {
+	name: "GAD-7",
 	choices: [
 		{
 			text: "Not at all",

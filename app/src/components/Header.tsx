@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 interface Props {
 	clicked: () => void;
@@ -10,7 +11,9 @@ export const Header : React.FC<Props> = ({clicked}) => {
 	return (
 		<View style={styles.container}>
 			<Pressable onPress={clicked}style={styles.profile}>
-				<Text style={styles.txt}>me</Text>
+				<Text style={styles.txt}>
+					<Ionicons name={'person-outline'} size={25} color='black' />
+				</Text>
 			</Pressable>
 		</View>
 	)
@@ -25,8 +28,8 @@ const styles = StyleSheet.create({
 	profile: {
 		height: 50,
 		width: 50,
-		backgroundColor: '#151FFF',
-		borderRadius: 17,
+		backgroundColor: 'white',
+		borderRadius: 22,
 		justifyContent: 'center',
 		alignItems: 'center'
 	},

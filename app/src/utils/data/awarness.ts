@@ -1,33 +1,38 @@
 
+import { Survey } from '../types/Survey'
+import { survey as anSurvey} from './anxiety.survey'
+
 export interface AwarnessItem {
 	id: 		string;
 	title: 		string;
 	gradient:	string[];
 	content: 	string;
+	survey?:  	Survey
 }
 
 export const _data : AwarnessItem[] = [
 	{
 		id: 'a-1',
-		title: "Depression",
+		title: "DDDDDDD",
 		gradient: ["#FFA7A7", "#FFD0D0"],
-		content: ``
+		content: ``,
 	},
 	{
 		id: `a-2`,
-		title: "Anxiety",
+		title: "AAAAAAAA",
 		gradient: ["#f6d5f7", "#fbe9d7"],
-		content: ``
+		content: ``,
+		survey: anSurvey 
 	},
 	{
 		id: `a-3`,
-		title: "Stress",
+		title: "SSSSSSSS",
 		gradient: ["#b5c6e0", "#ebf4f5"],
 		content: ``
 	},
 	{
 		id: `a-4`,
-		title: "Mood Swing",
+		title: "MSMSMSMS",
 		gradient: ["#b2e5f8", "#f2f3e2"],
 		content: ``	
 	},
