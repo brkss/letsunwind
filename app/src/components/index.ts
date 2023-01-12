@@ -8,3 +8,4 @@ export * from './Header';
 export * from './SessionElement';
 export * from './General'
 export * from './AwarenessCard'
+export * from './Choices'
