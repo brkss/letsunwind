@@ -1,5 +1,4 @@
 
-
 export interface AwarnessItem {
 	id: 		string;
 	title: 		string;
@@ -7,77 +6,29 @@ export interface AwarnessItem {
 	content: 	string;
 }
 
-
 export const _data : AwarnessItem[] = [
 	{
 		id: 'a-1',
-		title: "DDDDDDD",
+		title: "Depression",
 		gradient: ["#FFA7A7", "#FFD0D0"],
-		content: `
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.
-			\n
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.
-			\n
-\t simply dummy text simply dummy text simply dummy text simply dummy text simply dummy text simply dummy text\n
-\t simply dummy text\n
-\t simply dummy text\n
-\t simply dummy text\n
-		`
+		content: ``
 	},
 	{
 		id: `a-2`,
-		title: "AAAAAAA",
+		title: "Anxiety",
 		gradient: ["#f6d5f7", "#fbe9d7"],
-		content: `
-			Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.
-			\n
-			Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.
-			\n
-			\t simply dummy text\n
-			\t simply dummy text\n
-			\t simply dummy text\n
-			\t simply dummy text\n
-		`
+		content: ``
 	},
 	{
 		id: `a-3`,
-		title: "MSMSMSMS",
+		title: "Stress",
 		gradient: ["#b5c6e0", "#ebf4f5"],
-		content: `
-			<h1>Test Content<h1>
-			<p style="color: white">
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.
-			</p>
-			<p>
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.
-			</p>
-			<ul>
-				<li>simply dummy text</li>
-				<li>simply dummy text</li>
-				<li>simply dummy text</li>
-				<li>simply dummy text</li>
-			</ul>
-		`
+		content: ``
 	},
 	{
 		id: `a-4`,
-		title: "SSSSSSSS",
+		title: "Mood Swing",
 		gradient: ["#b2e5f8", "#f2f3e2"],
-		content: `
-			<h1>Test Content<h1>
-			<p>
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.
-			</p>
-			<p>
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.
-			</p>
-			<ul>
-				<li>simply dummy text</li>
-				<li>simply dummy text</li>
-				<li>simply dummy text</li>
-				<li>simply dummy text</li>
-			</ul>
-		`	
+		content: ``	
 	},
 ]
-

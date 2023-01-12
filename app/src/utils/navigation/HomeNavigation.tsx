@@ -1,6 +1,6 @@
 import React from 'react';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
-import { Breath, Home, Breathing, Profile, Reflect, ConfigReflect, Info, AwarenessList } from '../../screens';
+import { Breath, Home, Breathing, Profile, Reflect, ConfigReflect, Info, AwarenessList, Survey, Result } from '../../screens';
 
 const Stack = createSharedElementStackNavigator<any>();
 export const HomeNavigation : React.FC = () => {
@@ -117,6 +117,14 @@ export const HomeNavigation : React.FC = () => {
 					]
 				}}
 				component={Info}
+			/>
+			<Stack.Screen
+				name="Survey"
+				component={Survey}
+			/>
+			<Stack.Screen
+				name="Result"
+				component={Result}
 			/>
 		</Stack.Navigator>
 	)

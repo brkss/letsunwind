@@ -5,7 +5,7 @@ import { PanGestureHandler } from 'react-native-gesture-handler'
 import Animated, { Extrapolate, interpolate, runOnJS, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { snapPoint, useVector } from 'react-native-redash';
 import { SharedElement } from 'react-navigation-shared-element';
-import { AwarnessItem, genHtml } from '../../utils/data/awarness'
+import { AwarnessItem } from '../../utils/data/awarness'
 import { WebView } from 'react-native-webview' 
 
 const { width, height } = Dimensions.get("window") 
@@ -54,7 +54,16 @@ export const Info : React.FC<any> = ({navigation, route}) => {
 		<PanGestureHandler onGestureEvent={onGestureEvent}>
 			<Animated.View style={[style, {borderRadius: 40, flex: 1, backgroundColor: 'black'}]}>
 				<View style={styles.container}>
-					<View style={{height: 7, width: '50%', backgroundColor: 'white', borderRadius: 10, marginBottom: 10, alignSelf: 'center'}} />
+					<View 
+						style={{
+							height: 5,
+							width: '50%', 
+							backgroundColor: 'white', 
+							borderRadius: 10, 
+							marginBottom: 20, 
+							alignSelf: 'center',
+						}} 
+					/>
 					<ScrollView showsVerticalScrollIndicator={false}>
 						<SharedElement id={`${item.id}-gradient`}>
 							<LinearGradient  colors={[item.gradient[0], item.gradient[1]]} style={styles.card}>

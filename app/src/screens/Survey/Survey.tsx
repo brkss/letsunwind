@@ -4,7 +4,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming } fro
 import { Choices, Button } from '../../components'
 import { survey } from '../../utils/data/anxiety.survey';
 
-export const Survey : React.FC = () => {
+export const Survey : React.FC<any> = ({navigation}) => {
 
 	const opacity = useSharedValue<number>(1)
 	const [currentQst, setCurrentQst] = React.useState<number>(0)
@@ -12,10 +12,13 @@ export const Survey : React.FC = () => {
 	const [score, setScore] = React.useState(0);
 	
 	const next = () => {
-		if(currentQst > survey.question.length - 1 || tmp === -1){
-			console.log("score : ", score)
+		if(currentQst >= survey.question.length - 1){
+			console.log("next")
+			navigation.push('Result')
 			return;
 		}
+		if(tmp === -1)
+			return;
 		opacity.value = withTiming(0, {duration: 800})
 		if (currentQst + 1 < survey.question.length)
 			setCurrentQst(currentQst + 1)
