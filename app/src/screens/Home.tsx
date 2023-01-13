@@ -9,10 +9,12 @@ const { width } = Dimensions.get('window')
 const options = [
 	{
 		name: "Breathing",
+		link: "ConfigBreathing",
 		id: "op-1"
 	},
 	{
 		name: "Reflection",
+		link: "ConfigReflect",
 		id: "op-2"
 	}
 ]
@@ -33,7 +35,13 @@ export const Home : React.FC<any> = ({navigation}) => {
 				<Header clicked={() => navigation.navigate("Profile")} />
 					{
 						options.map((option, key) => (
-							<Option key={key} navigation={navigation} id={option.id} title={option.name} />
+							<Option 
+								key={key} 
+								navigation={navigation} 
+								id={option.id} 
+								title={option.name} 
+								link={option.link}
+							/>
 						))
 					}
 					

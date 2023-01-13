@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Pressable } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withDelay, withTiming } from 'react-native-reanimated'
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { _data } from '../../utils//data/reflection';
 
 const txt = [
 	"1- Lorem Ipsum is simply dummy text of the printing and typesetting industry ?",
@@ -12,20 +13,40 @@ const txt = [
 	"6- Lorem Ipsum is simply dummy text of the printing and typesetting industry ?",
 ]
 
-export const Reflect : React.FC<any> = ({navigation}) => {
+const pick = (picked: number[]): number => {
+	let index = -1
+	while(index < 0){
+		let rand = Math.floor(Math.random() * _data.length)
+		if(!picked.includes(rand)){
+			return rand;
+		}
+	}
+	return (index);
+}
 
+export const Reflect : React.FC<any> = ({navigation, route}) => {
+
+	const picked : number[] = []
+	const { minutes } = route.params;
+	const duration = (minutes * 60 * 1000) + new Date().getTime()
 	const opacity = useSharedValue<number>(1)
 	// animation !
 	const [current, setCurrent] = React.useState(0);
 	const next = () => {
+		
+		if((duration - new Date().getTime()) < 0){
+			navigation.navigate('Home')
+			return (0);
+		}
 		if(current >= txt.length - 1){
 			setCurrent(0);
-			navigation.navigate('Home')
 			return;
 		}
 		opacity.value = withTiming(0, {duration: 700})
 		setTimeout(() => {
-			setCurrent(current + 1);
+			const ind = pick(picked)
+			picked.push(ind);
+			setCurrent(ind);
 		}, 700);
 		opacity.value = withDelay(700, withTiming(1, {duration: 700}))
 	}
@@ -45,7 +66,7 @@ export const Reflect : React.FC<any> = ({navigation}) => {
 						<Ionicons name={'arrow-down-outline'} size={40} color={'white'} />
 					</View>
 				</View>
-				<Animated.Text  style={[styles.txt, txtStyle]}>{txt[current]}</Animated.Text>
+				<Animated.Text  style={[styles.txt, txtStyle]}>{_data[current]}</Animated.Text>
 				<Text style={styles.hint}>tap</Text>
 			</Pressable>
 		</SafeAreaView>

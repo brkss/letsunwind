@@ -92,10 +92,10 @@ export const ConfigReflect : React.FC<any> = ({route, navigation}) => {
 								</AnimatedPressable>
 								<SharedElement id={`${id}-title`}>
 									<Text style={styles.heading}>Reflection</Text>
-								</SharedElement>		
+								</SharedElement>
 							</View>
 							<Fluid onChange={(t) => setMinutes(t)} />
-							<StartButton onPress={() => navigation.push('Breathing', {minutes: minutes})} />
+							<StartButton onPress={() => navigation.push('Reflect', {minutes: minutes})} />
 						</View>
 			</Animated.View>
 		</PanGestureHandler>

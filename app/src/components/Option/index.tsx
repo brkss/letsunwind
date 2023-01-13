@@ -6,13 +6,14 @@ import { SharedElement } from 'react-navigation-shared-element';
 
 
 interface Props {
+	link: string;
 	title: string;
 	id: string 
 	navigation: any
 }
 
 
-export const Option : React.FC<Props> = ({title, id, navigation}) => {
+export const Option : React.FC<Props> = ({title, id, navigation, link}) => {
 	
 	const [opacity, setOpacity] = React.useState(1);
 	useFocusEffect(() => {
@@ -24,10 +25,7 @@ export const Option : React.FC<Props> = ({title, id, navigation}) => {
 			style={({pressed}) => ([{opacity: pressed ? 0.5 : 1}, styles.container])}
 			onPress={() => {
 				setOpacity(0);
-				if(title.toLowerCase() === "breathing")
-					navigation.push("ConfigBreathing", { id: id })
-				else if (title.toLowerCase() === "reflection")
-					navigation.push("ConfigReflect", { id: id })
+				navigation.push(link, { id: id })
 			}}
 		>
 				<View style={[styles.row, {opacity}]}>
