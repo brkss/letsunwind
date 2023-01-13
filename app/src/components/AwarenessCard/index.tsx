@@ -5,6 +5,7 @@ import { SharedElement } from 'react-navigation-shared-element';
 import { useFocusEffect } from '@react-navigation/native';
 import { AwarnessItem } from '../../utils/data/awarness' 
 import { Button } from '../General'
+import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 
 const { width } = Dimensions.get('window')
 
@@ -12,11 +13,39 @@ interface Props {
 	clicked: () => void;
 	navigation: any
 	item: AwarnessItem
+	current: boolean;
 }
 
-export const AwarenessCard : React.FC<Props> = ({navigation, item, clicked}) => {
+const CARD_HEIGHT = width - (width * .1)
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
+
+export const AwarenessCard : React.FC<Props> = ({navigation, item, clicked, current}) => {
+
+	const [showed, setShowed] = React.useState<boolean>(false);
 	const [opacity, setOpacity] = React.useState(0)
+	const bottom = useSharedValue<number>(-CARD_HEIGHT)
+
+	React.useEffect(() => {
+		if(current && item.survey){
+			setShowed(true);
+			bottom.value = withDelay(100, withTiming(-CARD_HEIGHT/1.5, {duration: 300}))	
+		}else if (item.survey){
+			setShowed(false);
+			bottom.value = withDelay(100, withTiming(-CARD_HEIGHT, {duration: 500}))	
+		}
+	}, [current])
+
+	const style = useAnimatedStyle(() => {
+		return {
+			bottom: bottom.value,
+			/*
+			transform: [
+				{ translateY: translate.value }
+			]
+			*/
+		}
+	})
 
 	useFocusEffect(() => {
 		if(navigation.isFocused())
@@ -31,12 +60,12 @@ export const AwarenessCard : React.FC<Props> = ({navigation, item, clicked}) => 
 					</LinearGradient>
 				</SharedElement>
 				<SharedElement id={`${item.id}-title`}>
-					<Text style={styles.title}>{item.title}</Text>
+					<Text style={styles.title}>{item.title}  </Text>
 				</SharedElement>
 			</View>
-			<Pressable onPress={() => { item.survey && navigation.navigate("Survey", { survey: item.survey })}} style={[styles.btn, {opacity: item.survey ? 1 : 0}]}>
-				<Text style={styles.btnText}>Check</Text>
-			</Pressable> 
+			<AnimatedPressable onPress={() => { item.survey && navigation.navigate("Survey", { survey: item.survey })}} style={[styles.btn, style, {opacity: item.survey ? 1 : 0}]}>
+				<Text style={styles.btnText}>Survey</Text>
+			</AnimatedPressable> 
 		</Pressable>
 	)
 }
@@ -63,10 +92,15 @@ const styles = StyleSheet.create({
 	},
 	btn: {
 		marginTop: 20,
-		backgroundColor: 'white',
-		padding: 20,
-		borderRadius: 50,
-		width: '80%'
+		backgroundColor: '#ffcfd2',
+		padding: 50,
+		//borderRadius: 50,
+		width: width - (width * .1),
+		height: width - (width * .1),
+		borderRadius: width - (width * .1),
+		//bottom: -(width - (width * .1))/1.5,
+		position: 'absolute'
+		//width: '80%'
 	},
 	btnText: {
 		color: 'black',
