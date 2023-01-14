@@ -18,6 +18,8 @@ func NewServer(store db.Store, tokenMaker token.Maker, config *utils.Config) *Se
 	server := &Server{store: store, tokenMaker: tokenMaker, config: config}
 	router := gin.Default()
 
+	router.POST("/user/register", server.CreateUserAPI)
+	router.POST("/user/login", server.LoginUserAPI)
 
 	server.router = router
 	return server

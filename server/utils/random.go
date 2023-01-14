@@ -9,6 +9,7 @@ import (
 
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz" 
+const digits = "1234567890" 
 
 func init(){
 	rand.Seed(time.Now().UnixNano())
@@ -31,4 +32,16 @@ func RandomName() string {
 
 func RandomEmail() string {
 	return fmt.Sprintf("%s@%s.com", RandomString(5), RandomString(3))
+}
+
+func GenerateOTP(n int) string {
+	var sb strings.Builder
+	k := len(digits)
+
+	for i := 0; i < n; i++ {
+		c := digits[rand.Intn(k)]
+		sb.WriteByte(c)
+	}
+	return sb.String()
+
 }
