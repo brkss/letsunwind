@@ -10,7 +10,7 @@ export const MainNavigation : React.FC = () => {
 	return (
 		<NavigationContainer>
 			{
-				false ?
+				true ?
 					<AppNavigation />
 				: <AuthNavigation />
 			}

@@ -36,6 +36,10 @@ export const Reflect : React.FC<any> = ({navigation, route}) => {
 		
 		if((duration - new Date().getTime()) < 0){
 			navigation.navigate('Home')
+			console.log("_data : ", {
+				time: minutes,
+				type: "reflect"
+			})
 			return (0);
 		}
 		if(current >= txt.length - 1){

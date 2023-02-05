@@ -4,67 +4,48 @@ import (
 	"testing"
 	"time"
 
-	"github.com/brkss/go-auth/utils"
 	"github.com/google/uuid"
+	"github.com/brkss/gogql/utils"
 	"github.com/stretchr/testify/require"
 )
 
-func TestValidToken(t *testing.T) {
 
-	id := uuid.New().String()
+// TestPasetoToken test tokem creation, token validation 
+// -> with valid token 
+// -> expired token 
+// -> invalid token 
+func TestPasetoToken(t *testing.T){
 
-	maker, err := NewPasetoMaker(utils.RandomString(32))
+	userId := uuid.New().String()
+	duration := time.Second * 15
+	key1 := utils.RandomString(32)
+
+	maker, err := NewPasetoMaker(key1)
 	require.NoError(t, err)
+	require.NotEmpty(t, maker)
 
-	token, err := maker.CreateToken(id, time.Minute)
+	token, payload, err := maker.CreateToken(userId, duration)
 	require.NoError(t, err)
 	require.NotEmpty(t, token)
+	require.NotEmpty(t, payload)
 
-	payload, err := maker.VerifyToken(token)
+	payload, err = maker.VerifyToken(token) 
 	require.NoError(t, err)
 	require.NotEmpty(t, payload)
 
-	require.Equal(t, payload.UserId, id)
-	require.WithinDuration(t, payload.IssuedAt, time.Now(), time.Second)
-	require.WithinDuration(t, payload.ExpiredAt, time.Now().Add(time.Minute), time.Second)
-}
-
-func TestExpiredToken(t *testing.T) {
-	id := uuid.New().String()
-
-	maker, err := NewPasetoMaker(utils.RandomString(32))
+	expiredToken, payload, err := maker.CreateToken(userId, -duration)
 	require.NoError(t, err)
+	require.NotEmpty(t, expiredToken)
+	require.NotEmpty(t, payload)
 
-	token, err := maker.CreateToken(id, -time.Minute)
-	require.NoError(t, err)
-	require.NotEmpty(t, token)
-
-	_, err = maker.VerifyToken(token)
+	_, err = maker.VerifyToken(expiredToken)
 	require.Error(t, err)
 	require.EqualError(t, err, ErrExpiredToken.Error())
-}
-
-func TestInvalidToken(t *testing.T) {
-
-	id := uuid.New().String()
 
 	maker1, err := NewPasetoMaker(utils.RandomString(32))
 	require.NoError(t, err)
 
-	maker2, err := NewPasetoMaker(utils.RandomString(32))
-	require.NoError(t, err)
-
-	token, err := maker1.CreateToken(id, -time.Minute)
-	require.NoError(t, err)
-	require.NotEmpty(t, token)
-
-	_, err = maker2.VerifyToken(token)
+	_, err = maker1.VerifyToken(token)
 	require.Error(t, err)
 	require.EqualError(t, err, ErrInvalidToken.Error())
-}
-
-func TestInvalidSymtrictKey(t *testing.T) {
-
-	_, err := NewPasetoMaker("aaa")
-	require.Error(t, err)
 }

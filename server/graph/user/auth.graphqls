@@ -1,0 +1,46 @@
+
+
+# Objects 
+type User {
+	id: ID!
+	name: String!
+	email: String!
+	age: Float!
+}
+
+# Inputs
+
+input LoginUserInput {
+	email: String!
+	password: String!
+} 
+
+input RegisterUserInput {
+	name: String! @binding(constraint: "required,min=5")
+	email: String! @binding(constraint: "required,email")
+	password: String! @binding(constraint: "required,min=5")
+	age: Float! @binding(constraint: "required,min=14")
+}
+
+# Responses
+
+type AuthResponse {
+	status: Boolean!
+	message: String
+	access_token: String
+	refresh_token: String
+	access_token_expires_at: String
+	refresh_token_expires_at: String
+}
+
+
+extend type Query {
+	Me: User! @auth()
+}
+
+extend type Mutation {
+	login(input: LoginUserInput): AuthResponse!
+	register(input: RegisterUserInput): AuthResponse!
+}
+
+

@@ -8,6 +8,9 @@ DB_PORT = 5432
 DB_HOST = localhost
 
 
+all:
+	@echo "Please spicify which makefile recipe !"
+
 startdb:
 	docker start $(DB_CONTAINER)
 
@@ -35,15 +38,15 @@ sqlc:
 test:
 	go test -v -cover ./...
 
+
+gen:
+	go run github.com/99designs/gqlgen generate
+
 server:
-	go run .
+	go run .	
 
-run:
-	CompileDaemon -command="make server"
+deploy:
+	docker compose up --force-recreate --build
 
-mock:
-	mockgen -package mockdb --destination=db/mock/store.go github.com/brkss/go-auth/db/sqlc Store
-
-gen: sqlc mock
-
-.PHONY: startdb stopdb postgres createdb dropdb migrateup migratedown sqlc test server run mock
+.PHONY:
+	gen server test sqlc migrateup migratedown dropdb createdb postgres startdb stopdb all

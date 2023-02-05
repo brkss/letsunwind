@@ -1,0 +1,21 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=gogql
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DB_SOURCE=postgres://root:root@postgres:5432/unwind?sslmode=disable
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    entrypoint: ["/app/wait-for", "postgres:5432", "--", "/app/start.sh"]
+    command: ["/app/main"]
+

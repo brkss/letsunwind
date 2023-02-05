@@ -9,7 +9,11 @@ import (
 )
 
 type Querier interface {
+	BlockSession(ctx context.Context, id string) error
+	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
+	GetSession(ctx context.Context, id string) (Session, error)
+	GetUser(ctx context.Context, id string) (User, error)
 	GetUserByEmail(ctx context.Context, email string) (User, error)
 }
 

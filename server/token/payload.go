@@ -7,31 +7,35 @@ import (
 	"github.com/google/uuid"
 )
 
-var ErrExpiredToken = errors.New("this token has been expired")
-var ErrInvalidToken = errors.New("invalid token !")
+var (
+	ErrExpiredToken = errors.New("This token is expired") 
+	ErrInvalidToken = errors.New("Invalid Token !")
+)
+
 
 type Payload struct {
-	ID string 
-	UserId string
-	ExpiredAt time.Time
-	IssuedAt time.Time
+	ID 			string
+	UserID 		string
+	ExpireAt 	time.Time
+	IssuedAt 	time.Time
 }
 
-func NewPayload(userId string, duration time.Duration) (*Payload){
+func NewPayload(userId string, duration time.Duration)(*Payload){
+
 	return &Payload{
 		ID: uuid.New().String(),
-		UserId: userId,
-		ExpiredAt: time.Now().Add(duration),
+		UserID: userId,
+		ExpireAt: time.Now().Add(duration),
 		IssuedAt: time.Now(),
 	}
+
 }
 
-func (p *Payload)Valid()(bool, error){
-
-	if time.Now().After(p.ExpiredAt){
-		return false, ErrExpiredToken
+func (p *Payload)Valid()(error){
+	
+	if time.Now().After(p.ExpireAt){
+		return ErrExpiredToken
 	}
 
-	return true, nil
+	return nil
 }
-

@@ -1,0 +1,10 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+directive @binding(constraint: String!) on INPUT_FIELD_DEFINITION | ARGUMENT_DEFINITION
+directive @auth on FIELD_DEFINITION
+
+type Query {
+	ping: String!	
+}

@@ -51,9 +51,10 @@ export const Breathing : React.FC<any> = ({route, navigation}) => {
 
 	const finish = () => {
 		const _data = {
-			time: minutes
+			time: minutes,
+			type: "breathing"
 		}
-		console.log("data : ")
+		console.log("data : ", _data);
 		navigation.popToTop()
 	}
 
