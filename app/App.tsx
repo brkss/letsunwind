@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { MainNavigation } from './src/utils/navigation';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { AuthProvider } from './src/utils/auth/Auth'
 
 export default function App() {
 
@@ -25,8 +26,10 @@ export default function App() {
 
 	return (
 		<View style={styles.container}>
-			<MainNavigation />
-			<StatusBar style="light" />
+			<AuthProvider>
+				<MainNavigation />
+				<StatusBar style="light" />
+			</AuthProvider>
 		</View>
 	);
 }
