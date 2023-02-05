@@ -14,10 +14,10 @@ const formatTime = (time: number) => {
 
 interface Props {
 	time: number;
-	navigation: any
+	finish: () => void;
 }
 
-export const BreathingIndicator : React.FC<Props> = ({time, navigation}) => {
+export const BreathingIndicator : React.FC<Props> = ({time, finish}) => {
 
 	const ratio = useSharedValue<number>(0.05)
 
@@ -44,7 +44,7 @@ export const BreathingIndicator : React.FC<Props> = ({time, navigation}) => {
 	})
 
 	if (minutes + seconds === 0)
-		navigation.popToTop()
+		finish();
 
 	return (
 		<View style={{flex: 1}}>

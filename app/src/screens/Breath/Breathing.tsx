@@ -49,6 +49,14 @@ export const Breathing : React.FC<any> = ({route, navigation}) => {
 		}
 	})
 
+	const finish = () => {
+		const _data = {
+			time: minutes
+		}
+		console.log("data : ")
+		navigation.popToTop()
+	}
+
 	return (
 		<View style={styles.container}>
 			<SafeAreaView>
@@ -63,7 +71,7 @@ export const Breathing : React.FC<any> = ({route, navigation}) => {
 				</Pressable>
 				</Animated.View>
 				<Animated.View style={[{flex:1}, indecatorStyle]}>
-					<BreathingIndicator navigation={navigation} time={time} />				
+					<BreathingIndicator finish={finish} time={time} />				
 				</Animated.View>
 				
 			</SafeAreaView>

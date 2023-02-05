@@ -50,7 +50,7 @@ export const Register: React.FC<any> = ({navigation}) => {
 	return (
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
 			<View style={styles.container}>
-				<Text style={[styles.heading, {color: err ? "#ffb67a" : "white"}]}>{err || `Hello, ✨${form.name || ""}`}</Text>
+				<Text style={[styles.heading, {color: err ? "#ffb67a" : "white"}]}>{err || `Hello, ${form.name || ""}`} ✨</Text>
 				<View style={{height: 10}} />
 				<Input onChange={(t) => handleFormChange("name", t)} label="What's your name" />				
 				<View style={{height: 10}} />

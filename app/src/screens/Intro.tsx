@@ -3,8 +3,8 @@ import { Text, SafeAreaView, View, StyleSheet, Pressable } from 'react-native';
 import Animated, {useAnimatedStyle, useSharedValue, withDelay,  withTiming } from 'react-native-reanimated';
 
 const intros = [
-	"1- students are exposed to a lot of pressure and stress, which negatively impacts their mental health",
-	"2- In the past decade, the number of students treated for mental disorders has been on the rise",
+	"students are exposed to a lot of pressure and stress, which negatively impacts their mental health",
+	"In the past decade, the number of students treated for mental disorders has been on the rise",
 	/*
 	"a survey conducted by the US National Alliance on Mental Illness resulted that 64% of students drop out of college because of mental health problems.",
 	"The prevalence of depression among college students was 41% in 2021.",
@@ -42,15 +42,16 @@ export const Intro : React.FC<any> = ({navigation}) => {
 				console.log("running !");
 				if(curr <= intros.length - 1){
 					setCurr(curr + 1);	
+					display();
+					console.log("curr : ", curr, "length : ", intros.length)
 				}
-				else{
+				if (curr > intros.length - 1){
+					opacity.value = withTiming(0, {duration: 100})
 					console.log("clear interval")
 					regBtnOpacity.value = withTiming(1, {duration: 800})
-					navigation.navigate('Register')
 					clearInterval(interval)
 				}
-				display();
-			}, 7700)
+			}, 7100)
 		}
 		
 		return () => clearInterval(interval)
@@ -72,10 +73,10 @@ export const Intro : React.FC<any> = ({navigation}) => {
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
 			<View style={styles.container}>
 				<Animated.Text style={[styles.txt, introTxtStyle]}>{intros[curr]}</Animated.Text>
-				<AnimatedPressable style={[{backgroundColor: 'white'}, regBtnStyle, styles.btn]}>
+				<AnimatedPressable onPress={() => navigation.navigate("Register")} style={[{backgroundColor: 'white'}, regBtnStyle, styles.btn]}>
 					<Text style={[styles.btnTxt, {color: 'black'}]}>Create Account</Text>
 				</AnimatedPressable>
-				<AnimatedPressable style={[{}, regBtnStyle, styles.btn]}>
+				<AnimatedPressable style={[{}, regBtnStyle, styles.btn]} onPress={() => navigation.navigate("Login")}>
 					<Text style={styles.btnTxt}>Login</Text>
 				</AnimatedPressable>
 			</View>							
