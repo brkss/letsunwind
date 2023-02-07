@@ -36,10 +36,10 @@ const link: any = new TokenRefreshLink({
 	isTokenValidOrUndefined: () => {
 		const token = GetAccessToken()
 		if (!token.token) return true;
-		//const exp_date = new Date(token.exp!);
-		//if (new Date() > exp_date){
-		//	return false;
-		//}
+		const exp_date = new Date(token.exp!);
+		if (new Date() > exp_date){
+			return false;
+		}
 		return true;
 	},
 	fetchAccessToken: async () => {
