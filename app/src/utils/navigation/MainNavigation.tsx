@@ -33,13 +33,13 @@ export const MainNavigation : React.FC = () => {
 				});
 				const data = await response.json();
 				if (data.refresh_token && data.access_token){
-					SetAccessToken(data.access_token);
-					login(data.access_token);
+					SetAccessToken(data.access_token, data.access_token_expires_at);
+					login(data.access_token, data.access_token_expires_at);
 					await SecureStore.setItemAsync("REF_TOKEN", data.refresh_token);
 				}
 			}else {
-				//SetAccessToken("hello")
-				//login("hello");
+				SetAccessToken("hello")
+				login("hello", new Date("7/2/2023"));
 			}
 			setLoading(false);
 		}).catch(e => {

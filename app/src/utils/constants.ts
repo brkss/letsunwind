@@ -1,2 +1,2 @@
 
-export const URI : string = `http://localhost:8080/`
+export const URI : string = `http://localhost:8080`

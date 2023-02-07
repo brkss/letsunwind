@@ -3,6 +3,8 @@ import {  Text, SafeAreaView, View, StyleSheet, Pressable, Dimensions } from 're
 import { Option, Header, Button } from '../components'
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { usePingQuery } from '../generated/generated'
+
 
 const { width } = Dimensions.get('window')
 
@@ -21,6 +23,8 @@ const options = [
 
 export const Home : React.FC<any> = ({navigation}) => {
 
+	const { data, loading, error } = usePingQuery()
+
 	const insets = useSafeAreaInsets()
 	const insetsStyles = {
 			paddingTop: insets.top,
@@ -28,6 +32,9 @@ export const Home : React.FC<any> = ({navigation}) => {
             paddingRight: insets.right,
             paddingBottom: insets.bottom
 	}
+
+	if (loading || error )
+	return <Text>loading ...</Text>
 
 	return (
 		<View style={[styles.safearea, insetsStyles]}>
@@ -47,7 +54,7 @@ export const Home : React.FC<any> = ({navigation}) => {
 					
 					{/*<Button txt='Learn More' clicked={() => navigation.navigate("Awarness")} filled />*/}
 				<Pressable onPress={() => navigation.navigate("Awarness")} style={styles.btn}>
-					<Text style={styles.btnText}>Awarness</Text>
+					<Text style={styles.btnText}>Awarness {data!.ping} </Text>
 				</Pressable>
 			</View>
 		</View>

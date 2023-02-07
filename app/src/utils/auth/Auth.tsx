@@ -9,7 +9,7 @@ type IToken = null | string;
 
 export const AuthContext = React.createContext<{
 	token: IToken,
-	login: (_token: string) => void;
+	login: (_token: string, exp: Date) => void;
 	logout: () => void;
 }>({
 	token: null,
@@ -27,13 +27,13 @@ export const AuthProvider : React.FC<any> = ({children}) => {
 		<AuthContext.Provider
 			value={{
 				token: ref.current,
-				login: (_token: string) => {
+				login: (_token: string, exp: Date) => {
 					console.log("login set token : ", token, _token)
 					SetToken(_token);
-					SetAccessToken(_token);
+					SetAccessToken(_token, exp);
 				},
 				logout: async () => {
-					SetAccessToken("")
+					SetAccessToken("", null)
 					SetToken(null)
 					await SecureStore.setItemAsync("REF_TOKEN", "")
 				}
