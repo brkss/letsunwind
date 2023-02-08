@@ -1,0 +1,6 @@
+mutation Login($email: String!){
+	login(input: { email: $email}){
+		status
+		message
+	}
+}
