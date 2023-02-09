@@ -39,7 +39,7 @@ export const Home : React.FC<any> = ({navigation}) => {
 	return (
 		<View style={[styles.safearea, insetsStyles]}>
 			<View style={styles.container}>
-				<Header clicked={() => navigation.navigate("Profile")} />
+					<Header clicked={() => navigation.navigate("Profile")} />
 					{
 						options.map((option, key) => (
 							<Option 
@@ -51,10 +51,9 @@ export const Home : React.FC<any> = ({navigation}) => {
 							/>
 						))
 					}
-					
 					{/*<Button txt='Learn More' clicked={() => navigation.navigate("Awarness")} filled />*/}
 				<Pressable onPress={() => navigation.navigate("Awarness")} style={styles.btn}>
-					<Text style={styles.btnText}>Awarness {data!.ping} </Text>
+					<Text style={styles.btnText}>Awarness </Text>
 				</Pressable>
 			</View>
 		</View>

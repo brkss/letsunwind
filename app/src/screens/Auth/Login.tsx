@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Pressable } from 'react-native';
-import { Input, Button } from '../../components'
+import { Input, Button, Error } from '../../components'
 import { useLoginMutation } from '../../generated/graphql'
 
 export const Login : React.FC<any>  = ({navigation}) => {
@@ -14,6 +14,7 @@ export const Login : React.FC<any>  = ({navigation}) => {
 			// set error !
 			return;
 		}
+		setError("");
 		login({
 			variables: {
 				email: email	
@@ -34,6 +35,7 @@ export const Login : React.FC<any>  = ({navigation}) => {
 	return (
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
 			<View style={styles.container}>
+				{ error.length > 0 && <Error error={error} /> }
 				<Text style={styles.title}>Login</Text>		
 				<View style={{height: 30}} />
 				<Input label='Your Student Email' onChange={(t) => setEmail(t)} />

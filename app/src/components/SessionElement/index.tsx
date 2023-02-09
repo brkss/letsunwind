@@ -1,11 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export const SessionElement : React.FC = () => {
+interface Props {
+	name: string;
+	duration: string;
+}
+
+export const SessionElement : React.FC<Props> = ({name, duration}) => {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Reflection</Text>
-			<Text style={styles.time}>2 min</Text>
+			<Text style={styles.title}>{name}</Text>
+			<Text style={styles.time}>{duration} min</Text>
 		</View>		
 	);
 }

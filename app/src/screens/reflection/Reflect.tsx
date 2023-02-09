@@ -3,6 +3,7 @@ import { SafeAreaView, View, Text, StyleSheet, Pressable } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withDelay, withTiming } from 'react-native-reanimated'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { _data } from '../../utils//data/reflection';
+import { useCreateExerciseMutation } from '../../generated/graphql';
 
 const txt = [
 	"1- Lorem Ipsum is simply dummy text of the printing and typesetting industry ?",
@@ -26,6 +27,9 @@ const pick = (picked: number[]): number => {
 
 export const Reflect : React.FC<any> = ({navigation, route}) => {
 
+
+	const [create] = useCreateExerciseMutation();
+
 	const picked : number[] = []
 	const { minutes } = route.params;
 	const duration = (minutes * 60 * 1000) + new Date().getTime()
@@ -36,9 +40,15 @@ export const Reflect : React.FC<any> = ({navigation, route}) => {
 		
 		if((duration - new Date().getTime()) < 0){
 			navigation.navigate('Home')
-			console.log("_data : ", {
+			const _data = {
 				time: minutes,
-				type: "reflect"
+				type: "Reflect"
+			}
+			create({
+				variables: {
+					name: _data.type,
+					duration: _data.time
+				}
 			})
 			return (0);
 		}

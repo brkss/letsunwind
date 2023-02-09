@@ -17,6 +17,8 @@ interface Props {
 	finish: () => void;
 }
 
+let done = false; 
+
 export const BreathingIndicator : React.FC<Props> = ({time, finish}) => {
 
 	const ratio = useSharedValue<number>(0.05)
@@ -43,8 +45,10 @@ export const BreathingIndicator : React.FC<Props> = ({time, finish}) => {
 		}
 	})
 
-	if (minutes + seconds === 0)
+	if (minutes + seconds === 0 && !done){
+		done = true;
 		finish();
+	}
 
 	return (
 		<View style={{flex: 1}}>

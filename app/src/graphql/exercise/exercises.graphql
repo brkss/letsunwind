@@ -1,0 +1,8 @@
+query GetExercices{
+	getExercices{
+		id
+		name
+		duration
+		created_at
+	}  
+}

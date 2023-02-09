@@ -4,6 +4,7 @@ import { Tips } from '../../components';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import Animated, { useAnimatedStyle, useSharedValue, withDelay, withSpring, withTiming } from 'react-native-reanimated'
 import { BreathingIndicator } from '../../components'
+import { GetExercicesDocument, GetExercicesQuery, useCreateExerciseMutation } from '../../generated/graphql';
 
 //const { width } = Dimensions.get('window')
 const tips = [
@@ -16,7 +17,9 @@ const tips = [
 ]
 
 export const Breathing : React.FC<any> = ({route, navigation}) => {
-	
+
+	const [create] = useCreateExerciseMutation();
+
 	const { minutes } = route.params
 	const opa = useSharedValue<number>(1);
 	const indOpa = useSharedValue<number>(0);
@@ -54,8 +57,31 @@ export const Breathing : React.FC<any> = ({route, navigation}) => {
 			time: minutes,
 			type: "breathing"
 		}
-		console.log("data : ", _data);
-		navigation.popToTop()
+		create({
+			variables: {
+				name: _data.type,
+				duration: _data.time
+			},
+			update: (store, {data}) => {
+				if(!data?.createExercice.status)
+					return;
+				const exercises = store.readQuery<GetExercicesQuery>({
+					query: GetExercicesDocument
+				})?.getExercices;
+				const new_exercise = data.createExercice.exercice!;
+				store.writeQuery({
+					query: GetExercicesDocument,
+					data: {
+						getExercices: [new_exercise, ...exercises!]
+					} 
+				})
+			}
+		}).then(_ => {
+			navigation.popToTop()
+		}).catch(e => {
+			navigation.popToTop()
+		}) 
+		
 	}
 
 	return (

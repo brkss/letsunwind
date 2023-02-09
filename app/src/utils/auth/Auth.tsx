@@ -36,6 +36,7 @@ export const AuthProvider : React.FC<any> = ({children}) => {
 					SetAccessToken("", null)
 					SetToken(null)
 					await SecureStore.setItemAsync("REF_TOKEN", "")
+					await SecureStore.setItemAsync("REF_TOKEN_EXP", "")
 				}
 			}}
 		>

@@ -2,9 +2,9 @@ import React from 'react';
 import { Text, SafeAreaView, View, StyleSheet, Pressable } from 'react-native';
 import Animated, {useAnimatedStyle, useSharedValue, withDelay,  withTiming } from 'react-native-reanimated';
 
-const intros = [
-	"students are exposed to a lot of pressure and stress, which negatively impacts their mental health",
-	"In the past decade, the number of students treated for mental disorders has been on the rise",
+const intros : string[] = [
+	//"students are exposed to a lot of pressure and stress, which negatively impacts their mental health",
+	//"In the past decade, the number of students treated for mental disorders has been on the rise",
 	/*
 	"a survey conducted by the US National Alliance on Mental Illness resulted that 64% of students drop out of college because of mental health problems.",
 	"The prevalence of depression among college students was 41% in 2021.",

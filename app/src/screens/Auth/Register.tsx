@@ -1,11 +1,12 @@
 import React from 'react';
 import { Pressable, SafeAreaView, View, StyleSheet, Text } from 'react-native';
-import { Input, Button } from '../../components';
+import { Input, Button, Error } from '../../components';
 import { validateEmail } from '../../utils/helpers/validateEmail';
-
+import { useRegisterMutation } from '../../generated/graphql';
 
 export const Register: React.FC<any> = ({navigation}) => {
 
+	const [register] = useRegisterMutation();
 	const [err, setError] = React.useState("")
 	const [form, setForm] = React.useState<any>({});
 
@@ -17,7 +18,6 @@ export const Register: React.FC<any> = ({navigation}) => {
 	}
 
 	const submit = () => {
-
 		// validate data 
 		if(!form || !form.age || !form.name || !form.email){
 			setError("Invalid Data ! Please make sure all fields are filled !")
@@ -43,18 +43,35 @@ export const Register: React.FC<any> = ({navigation}) => {
 			return;
 		}
 		setError("")
-		console.log("register data : ", form)
+		register({
+			variables: {
+				name: form.name,
+				email: form.email,
+				age: form.age
+			}
+		}).then(res => {
+			console.log("register res : ", res);
+			if (res.data?.register.status){
+				navigation.navigate("Confirmation", {email: form.email});
+			}
+		}).catch((e: Error) => {
+			console.log("something went wrong registring user : ",  e);
+			const err = e.message.split(":")
+			err.slice(1, err.length).join("")
+			setError(err.slice(1, err.length).join("").trim());
+		})
+		//console.log("register data : ", form)
 		//navigation.navigate("HomeNav")
 	}
 
 	return (
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
 			<View style={styles.container}>
-				<Text style={[styles.heading, {color: err ? "#ffb67a" : "white"}]}>{err || `Hello, ${form.name || ""}`} ✨</Text>
+				<Text style={[styles.heading, {color: err ? "#ffb67a" : "white"}]}>{err || `Hello, ${form.name || ""}✨`} </Text>
 				<View style={{height: 10}} />
 				<Input onChange={(t) => handleFormChange("name", t)} label="What's your name" />				
 				<View style={{height: 10}} />
-				<Input onChange={(t) => handleFormChange("email", t)} label="What's your Email" />				
+				<Input onChange={(t) => handleFormChange("email", t)} label="What's your Student Email" />				
 				<View style={{height: 10}} />
 				<Input onChange={(t) => handleFormChange("age", t)} label="How old are you?" />				
 				<View style={{height: 40}} />

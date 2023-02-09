@@ -1,0 +1,15 @@
+mutation CreateExercise($name: String!, $duration: String!){
+	createExercice(input: {
+		name: $name,
+		duration: $duration
+	}){
+		status
+		message
+		exercice{
+			id
+				name
+				duration
+				created_at
+		}
+	}
+}

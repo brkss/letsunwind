@@ -49,7 +49,6 @@ export const Breath : React.FC<any> = ({route, navigation}) => {
 				rot.value = withSpring(0);
 			}
 		},
-
 	})
 
 	const style = useAnimatedStyle(() => {

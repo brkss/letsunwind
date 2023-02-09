@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
-import { Input, Button } from '../../components';
+import { Input, Button, Error } from '../../components';
 import { useVerifyUserMutation } from '../../generated/graphql'
 import { AuthContext } from '../../utils/auth/Auth';
 import { SetAccessToken } from '../../utils/token/token';
@@ -27,9 +27,8 @@ export const Confirmation : React.FC<any> = ({route}) => {
 				code: code
 			},
 		}).then(async res => {
-			
 			console.log("res : ", res)
-			if (!res.data?.verifyUser?.status){
+			if (res.data?.verifyUser?.status){
 				// log user in 
 				const exp = new Date(res.data!.verifyUser!.access_token_expires_at!);
 				ctx.login(res.data!.verifyUser!.access_token!, exp)
@@ -37,15 +36,19 @@ export const Confirmation : React.FC<any> = ({route}) => {
 				await SecureStore.setItemAsync("REF_TOKEN", res.data!.verifyUser!.refresh_token!);
 				await SecureStore.setItemAsync("REF_TOKEN_EXP", new Date(res.data!.verifyUser!.refresh_token_expires_at!).toString());
 			}
+			else {
+				setError("Invalid verification code");
+			}
 		}).catch((e: Error) => {
 			console.log(" error accured while verifying user ! : ", e);
-			setError(e.message);
+			setError(e.message.split(":")[1]);
 		})
 	}
 
 	return (
 		<SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
 			<View style={styles.container}>
+				{ error.length > 0 && <Error error={error} /> }
 				<Text style={styles.title}>Confirmation Code</Text>
 				<Text style={styles.subtitle}>check your email !</Text>
 				<View style={{height: 50}} />
