@@ -3,7 +3,7 @@ import { SafeAreaView, View, Text, StyleSheet, Pressable } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withDelay, withTiming } from 'react-native-reanimated'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { _data } from '../../utils//data/reflection';
-import { useCreateExerciseMutation } from '../../generated/graphql';
+import { GetExercicesDocument, GetExercicesQuery, useCreateExerciseMutation } from '../../generated/graphql';
 
 const txt = [
 	"1- Lorem Ipsum is simply dummy text of the printing and typesetting industry ?",
@@ -37,9 +37,7 @@ export const Reflect : React.FC<any> = ({navigation, route}) => {
 	// animation !
 	const [current, setCurrent] = React.useState(0);
 	const next = () => {
-		
 		if((duration - new Date().getTime()) < 0){
-			navigation.navigate('Home')
 			const _data = {
 				time: minutes,
 				type: "Reflect"
@@ -48,7 +46,25 @@ export const Reflect : React.FC<any> = ({navigation, route}) => {
 				variables: {
 					name: _data.type,
 					duration: _data.time
+				},
+				update: (store, {data}) => {
+					if (!data?.createExercice.status)
+					 	return null;
+					const exercises = store.readQuery<GetExercicesQuery>({
+						query: GetExercicesDocument
+					})?.getExercices!;
+					const new_exercice = data.createExercice.exercice!
+					store.writeQuery<GetExercicesQuery>({
+						query: GetExercicesDocument,
+						data: {
+							getExercices: [new_exercice, ...exercises]
+						}
+					});
 				}
+			}).then(_ => {
+				navigation.navigate('Home')
+			}).catch(_ => {
+				navigation.navigate('Home')
 			})
 			return (0);
 		}
