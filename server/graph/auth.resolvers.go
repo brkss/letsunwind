@@ -6,11 +6,12 @@ package graph
 
 import (
 	"context"
+	"fmt"
 
 	db "github.com/brkss/gogql/db/sqlc"
 	"github.com/brkss/gogql/graph/model"
 	"github.com/brkss/gogql/middleware"
-	"github.com/brkss/gogql/utils"
+	"github.com/brkss/gogql/otp"
 	"github.com/google/uuid"
 	"github.com/vektah/gqlparser/v2/gqlerror"
 )
@@ -20,70 +21,27 @@ func (r *mutationResolver) Login(ctx context.Context, input *model.LoginUserInpu
 	user, err := r.Store.GetUserByEmail(ctx, input.Email)
 	if err != nil {
 		return nil, &gqlerror.Error{
-			Message: "Something went wrong !",
-		}
-	}
-	err = utils.VerifyPassword(user.Password, input.Password)
-	if err != nil {
-		return nil, &gqlerror.Error{
-			Message: "Invalid Password !",
+			Message: "User not found ",
 		}
 	}
 
-	token, accessPayload, err := r.Maker.CreateToken(user.ID, r.Config.TokenDuration)
-	if err != nil {
-		return nil, &gqlerror.Error{
-			Message: "Cannot create token !",
-		}
-	}
+	otp, err := otp.CreateOTP(user.ID, r.Store, ctx)
 
-	refreshToken, refreshPayload, err := r.Maker.CreateToken(user.ID, r.Config.RefreshTokenDuration)
-	if err != nil {
-		return nil, &gqlerror.Error{
-			Message: "Cannot create refresh token !",
-		}
-	}
-
-	// create session !
-	_, err = r.Store.CreateSession(ctx, db.CreateSessionParams{
-		ID:        refreshPayload.ID,
-		UserID:    user.ID,
-		Token:     refreshToken,
-		ExpiredAt: refreshPayload.ExpireAt,
-		Blocked:   false,
-	})
-	if err != nil {
-		return nil, &gqlerror.Error{
-			Message: "cannot create refresh token !",
-		}
-	}
-
-	ac_exp := accessPayload.ExpireAt.String()
-	rf_exp := refreshPayload.ExpireAt.String()
-
+	msg := "Verification code sent to your email : " + otp
 	return &model.AuthResponse{
-		Status:                false,
-		AccessToken:           &token,
-		RefreshToken:          &refreshToken,
-		RefreshTokenExpiresAt: &rf_exp,
-		AccessTokenExpiresAt:  &ac_exp,
+		Status:  true,
+		Message: &msg,
 	}, nil
 }
 
 // Register is the resolver for the register field.
 func (r *mutationResolver) Register(ctx context.Context, input *model.RegisterUserInput) (*model.AuthResponse, error) {
-	hashedPassword, err := utils.HashPassword(input.Password)
-	if err != nil {
-		return nil, &gqlerror.Error{
-			Message: "Cannot hasdh password !",
-		}
-	}
 	arg := db.CreateUserParams{
 		ID:       uuid.New().String(),
 		Name:     input.Name,
 		Email:    input.Email,
-		Password: hashedPassword,
-		Age: int32(input.Age),
+		Password: "none--",
+		Age:      int32(input.Age),
 	}
 	user, err := r.Store.CreateUser(ctx, arg)
 	if err != nil {
@@ -92,6 +50,30 @@ func (r *mutationResolver) Register(ctx context.Context, input *model.RegisterUs
 		}
 	}
 
+	otp, err := otp.CreateOTP(user.ID, r.Store, ctx)
+
+	msg := "Verification code sent to your email : " + otp
+	return &model.AuthResponse{
+		Status:  true,
+		Message: &msg,
+	}, nil
+}
+
+// VerifyUser is the resolver for the verifyUser field.
+func (r *mutationResolver) VerifyUser(ctx context.Context, input *model.VerificationRequest) (*model.AuthorizationResponse, error) {
+	user, err := r.Store.GetUserByEmail(ctx, input.Email)
+	if err != nil {
+		return nil, &gqlerror.Error{
+			Message: "invalid user !",
+		}
+	}
+	ok, err := otp.VerifyOTP(input.Code, user.ID, r.Store, ctx)
+	if err != nil || !ok {
+		fmt.Print("error : ", err, "\n", user.ID, input.Code)
+		return nil, &gqlerror.Error{
+			Message: "Invalid Code !",
+		}
+	}
 	token, accessPayload, err := r.Maker.CreateToken(user.ID, r.Config.TokenDuration)
 	if err != nil {
 		return nil, &gqlerror.Error{
@@ -122,9 +104,8 @@ func (r *mutationResolver) Register(ctx context.Context, input *model.RegisterUs
 
 	ac_exp := accessPayload.ExpireAt.String()
 	rf_exp := refreshPayload.ExpireAt.String()
-
-	return &model.AuthResponse{
-		Status:                false,
+	return &model.AuthorizationResponse{
+		Status:                true,
 		AccessToken:           &token,
 		RefreshToken:          &refreshToken,
 		RefreshTokenExpiresAt: &rf_exp,
@@ -155,8 +136,3 @@ func (r *queryResolver) Me(ctx context.Context) (*model.User, error) {
 
 	return &response, nil
 }
-
-// Mutation returns MutationResolver implementation.
-func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
-
-type mutationResolver struct{ *Resolver }

@@ -8,6 +8,35 @@ import (
 	"time"
 )
 
+type Answer struct {
+	ID         string `json:"id"`
+	Ans        string `json:"ans"`
+	QuestionID string `json:"question_id"`
+	Val        int32  `json:"val"`
+}
+
+type Exercice struct {
+	ID        string    `json:"id"`
+	Name      string    `json:"name"`
+	Duration  string    `json:"duration"`
+	UserID    string    `json:"user_id"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type Question struct {
+	ID       string `json:"id"`
+	Qst      string `json:"qst"`
+	SurveyID string `json:"survey_id"`
+}
+
+type Result struct {
+	ID       string `json:"id"`
+	Min      int32  `json:"min"`
+	Max      int32  `json:"max"`
+	Comment  string `json:"comment"`
+	SurverID string `json:"surver_id"`
+}
+
 type Session struct {
 	ID        string    `json:"id"`
 	UserID    string    `json:"user_id"`
@@ -17,6 +46,19 @@ type Session struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
+type Survey struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+type Surveyed struct {
+	ID         string `json:"id"`
+	UserID     string `json:"user_id"`
+	SurveyID   string `json:"survey_id"`
+	QuestionID string `json:"question_id"`
+	AnswerID   string `json:"answer_id"`
+}
+
 type User struct {
 	ID        string    `json:"id"`
 	Name      string    `json:"name"`
@@ -24,4 +66,13 @@ type User struct {
 	Password  string    `json:"password"`
 	CreatedAt time.Time `json:"created_at"`
 	Age       int32     `json:"age"`
+}
+
+type Verfication struct {
+	ID        string    `json:"id"`
+	Code      string    `json:"code"`
+	UserID    string    `json:"user_id"`
+	ExpiredAt time.Time `json:"expired_at"`
+	CreatedAt time.Time `json:"created_at"`
+	Blocked   bool      `json:"blocked"`
 }

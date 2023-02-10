@@ -12,13 +12,11 @@ type User {
 
 input LoginUserInput {
 	email: String!
-	password: String!
 } 
 
 input RegisterUserInput {
 	name: String! @binding(constraint: "required,min=5")
 	email: String! @binding(constraint: "required,email")
-	password: String! @binding(constraint: "required,min=5")
 	age: Float! @binding(constraint: "required,min=14")
 }
 
@@ -27,12 +25,20 @@ input RegisterUserInput {
 type AuthResponse {
 	status: Boolean!
 	message: String
+}
+
+type AuthorizationResponse {
+	status: Boolean!
 	access_token: String
 	refresh_token: String
 	access_token_expires_at: String
 	refresh_token_expires_at: String
 }
 
+input VerificationRequest {
+	code: String! @binding(constraint: "required,min=4")
+	email: String! @binding(constraint: "required,email")
+}
 
 extend type Query {
 	Me: User! @auth()
@@ -41,6 +47,7 @@ extend type Query {
 extend type Mutation {
 	login(input: LoginUserInput): AuthResponse!
 	register(input: RegisterUserInput): AuthResponse!
+	verifyUser(input: VerificationRequest): AuthorizationResponse
 }
 
 

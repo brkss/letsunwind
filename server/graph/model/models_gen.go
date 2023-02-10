@@ -2,25 +2,75 @@
 
 package model
 
+type Answer struct {
+	ID         string  `json:"id"`
+	Ans        string  `json:"ans"`
+	Val        float64 `json:"val"`
+	QuestionID string  `json:"question_id"`
+}
+
 type AuthResponse struct {
+	Status  bool    `json:"status"`
+	Message *string `json:"message"`
+}
+
+type AuthorizationResponse struct {
 	Status                bool    `json:"status"`
-	Message               *string `json:"message"`
 	AccessToken           *string `json:"access_token"`
 	RefreshToken          *string `json:"refresh_token"`
 	AccessTokenExpiresAt  *string `json:"access_token_expires_at"`
 	RefreshTokenExpiresAt *string `json:"refresh_token_expires_at"`
 }
 
+type CreateExerciceInput struct {
+	Name     string `json:"name"`
+	Duration string `json:"duration"`
+}
+
+type CreateExerciceResponse struct {
+	Status   bool      `json:"status"`
+	Message  *string   `json:"message"`
+	Exercice *Exercice `json:"exercice"`
+}
+
+type Exercice struct {
+	ID        string `json:"id"`
+	Name      string `json:"name"`
+	Duration  string `json:"duration"`
+	UserID    string `json:"user_id"`
+	CreatedAt string `json:"created_at"`
+}
+
 type LoginUserInput struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email string `json:"email"`
+}
+
+type Question struct {
+	ID       string    `json:"id"`
+	Qst      string    `json:"qst"`
+	SurveyID string    `json:"survey_id"`
+	Answer   []*Answer `json:"answer"`
 }
 
 type RegisterUserInput struct {
-	Name     string  `json:"name"`
-	Email    string  `json:"email"`
-	Password string  `json:"password"`
-	Age      float64 `json:"age"`
+	Name  string  `json:"name"`
+	Email string  `json:"email"`
+	Age   float64 `json:"age"`
+}
+
+type Result struct {
+	ID       string  `json:"id"`
+	Min      float64 `json:"min"`
+	Max      float64 `json:"max"`
+	Comment  string  `json:"comment"`
+	SurveyID string  `json:"survey_id"`
+}
+
+type Survey struct {
+	ID        string      `json:"id"`
+	Name      string      `json:"name"`
+	Questions []*Question `json:"questions"`
+	Results   []*Result   `json:"results"`
 }
 
 type User struct {
@@ -28,4 +78,9 @@ type User struct {
 	Name  string  `json:"name"`
 	Email string  `json:"email"`
 	Age   float64 `json:"age"`
+}
+
+type VerificationRequest struct {
+	Code  string `json:"code"`
+	Email string `json:"email"`
 }

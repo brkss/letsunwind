@@ -10,11 +10,25 @@ import (
 
 type Querier interface {
 	BlockSession(ctx context.Context, id string) error
+	BlockVerification(ctx context.Context, id string) error
+	CreateExercice(ctx context.Context, arg CreateExerciceParams) (Exercice, error)
+	CreateQuestionAnswer(ctx context.Context, arg CreateQuestionAnswerParams) (Answer, error)
 	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
+	CreateSurvey(ctx context.Context, arg CreateSurveyParams) (Survey, error)
+	CreateSurveyQuestion(ctx context.Context, arg CreateSurveyQuestionParams) (Question, error)
+	CreateSurveyResult(ctx context.Context, arg CreateSurveyResultParams) (Result, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
+	CreateVerification(ctx context.Context, arg CreateVerificationParams) (Verfication, error)
+	GetExercices(ctx context.Context, userID string) ([]Exercice, error)
+	GetQuestionAnswers(ctx context.Context, questionID string) ([]Answer, error)
 	GetSession(ctx context.Context, id string) (Session, error)
+	GetSurvey(ctx context.Context, id string) (Survey, error)
+	GetSurveyQuestions(ctx context.Context, surveyID string) ([]Question, error)
+	GetSurveyResults(ctx context.Context, surverID string) ([]Result, error)
+	GetSurvies(ctx context.Context) ([]Survey, error)
 	GetUser(ctx context.Context, id string) (User, error)
 	GetUserByEmail(ctx context.Context, email string) (User, error)
+	GetVerification(ctx context.Context, arg GetVerificationParams) (Verfication, error)
 }
 
 var _ Querier = (*Queries)(nil)

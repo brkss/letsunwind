@@ -1,0 +1,6 @@
+query Survies {
+	survies {
+		id
+		name
+	}
+}

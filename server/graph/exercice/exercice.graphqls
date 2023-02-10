@@ -1,0 +1,28 @@
+
+
+type Exercice {
+	id: ID!
+	name: String!
+	duration: String!
+	user_id: String!
+	created_at: String!
+}
+
+type CreateExerciceResponse {
+	status: Boolean!
+	message: String
+	exercice: Exercice
+}
+
+input CreateExerciceInput {
+	name: String! @binding(constraint: "required")
+	duration: String! @binding(constraint: "required")
+}
+
+extend type Query {
+	getExercices: [Exercice!]! @auth()
+}
+
+extend type Mutation {
+	createExercice(input: CreateExerciceInput): CreateExerciceResponse! @auth()
+}

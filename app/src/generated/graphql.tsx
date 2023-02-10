@@ -15,6 +15,14 @@ export type Scalars = {
   Float: number;
 };
 
+export type Answer = {
+  __typename?: 'Answer';
+  ans: Scalars['String'];
+  id: Scalars['ID'];
+  question_id: Scalars['String'];
+  val: Scalars['Float'];
+};
+
 export type AuthResponse = {
   __typename?: 'AuthResponse';
   message?: Maybe<Scalars['String']>;
@@ -87,13 +95,45 @@ export type Query = {
   __typename?: 'Query';
   Me: User;
   getExercices: Array<Exercice>;
+  getSurvey: Survey;
   ping: Scalars['String'];
+  survies: Array<Survey>;
+};
+
+
+export type QueryGetSurveyArgs = {
+  id: Scalars['String'];
+};
+
+export type Question = {
+  __typename?: 'Question';
+  answer: Array<Answer>;
+  id: Scalars['ID'];
+  qst: Scalars['String'];
+  survey_id: Scalars['ID'];
 };
 
 export type RegisterUserInput = {
   age: Scalars['Float'];
   email: Scalars['String'];
   name: Scalars['String'];
+};
+
+export type Result = {
+  __typename?: 'Result';
+  comment: Scalars['String'];
+  id: Scalars['ID'];
+  max: Scalars['Float'];
+  min: Scalars['Float'];
+  survey_id: Scalars['ID'];
+};
+
+export type Survey = {
+  __typename?: 'Survey';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  questions?: Maybe<Array<Question>>;
+  results?: Maybe<Array<Result>>;
 };
 
 export type User = {
@@ -150,6 +190,11 @@ export type PingQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PingQuery = { __typename?: 'Query', ping: string };
+
+export type SurviesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SurviesQuery = { __typename?: 'Query', survies: Array<{ __typename?: 'Survey', id: string, name: string }> };
 
 
 export const LoginDocument = gql`
@@ -370,3 +415,38 @@ export function usePingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PingQ
 export type PingQueryHookResult = ReturnType<typeof usePingQuery>;
 export type PingLazyQueryHookResult = ReturnType<typeof usePingLazyQuery>;
 export type PingQueryResult = Apollo.QueryResult<PingQuery, PingQueryVariables>;
+export const SurviesDocument = gql`
+    query Survies {
+  survies {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useSurviesQuery__
+ *
+ * To run a query within a React component, call `useSurviesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSurviesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSurviesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSurviesQuery(baseOptions?: Apollo.QueryHookOptions<SurviesQuery, SurviesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SurviesQuery, SurviesQueryVariables>(SurviesDocument, options);
+      }
+export function useSurviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SurviesQuery, SurviesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SurviesQuery, SurviesQueryVariables>(SurviesDocument, options);
+        }
+export type SurviesQueryHookResult = ReturnType<typeof useSurviesQuery>;
+export type SurviesLazyQueryHookResult = ReturnType<typeof useSurviesLazyQuery>;
+export type SurviesQueryResult = Apollo.QueryResult<SurviesQuery, SurviesQueryVariables>;

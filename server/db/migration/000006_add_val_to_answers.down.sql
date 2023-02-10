@@ -1,0 +1,2 @@
+
+ALTER TABLE IF EXISTS "answers" DROP COLUMN val ;

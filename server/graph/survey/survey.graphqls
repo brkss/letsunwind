@@ -1,0 +1,35 @@
+
+type Survey {
+	id: ID!
+	name: String!
+	questions: [Question!]
+	results: [Result!]
+}
+
+type Question {
+	id: ID!
+	qst: String!
+	survey_id: ID!
+	answer: [Answer!]!
+}
+
+type Answer {
+	id: ID!
+	ans: String!
+	val: Float!
+	question_id: String!
+}
+
+type Result {
+	id: ID!
+	min: Float!
+	max: Float!
+	comment: String!
+	survey_id: ID!
+}
+
+extend type Query {
+	getSurvey(id: String!): Survey!
+	survies: [Survey!]!
+}
+
