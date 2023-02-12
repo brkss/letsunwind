@@ -6,15 +6,24 @@ import Animated, { Extrapolate, interpolate, runOnJS, useAnimatedGestureHandler,
 import { snapPoint, useVector } from 'react-native-redash';
 import { SharedElement } from 'react-navigation-shared-element';
 import { AwarnessItem } from '../../utils/data/awarness'
-import { WebView } from 'react-native-webview' 
+import { InfoArticle, Loading } from '../../components';
+import { useGetAwarenessInfoQuery } from '../../generated/graphql';
 
 const { width, height } = Dimensions.get("window") 
 
 export const Info : React.FC<any> = ({navigation, route}) => {
 
-	const item  = route.params.item as AwarnessItem
+	const { id } = route.params
+	const { data, loading, error } = useGetAwarenessInfoQuery({
+		variables: {
+			id: id
+		}
+	});
 	const isGestureActive = useSharedValue<boolean>(false)
 	const translation = useVector()
+
+	if (loading || error)
+		return <Loading />
 
 	const onGestureEvent = useAnimatedGestureHandler({
 		onStart: () => (isGestureActive.value = true),
@@ -65,22 +74,9 @@ export const Info : React.FC<any> = ({navigation, route}) => {
 						}} 
 					/>
 					<ScrollView showsVerticalScrollIndicator={false}>
-						<SharedElement id={`${item.id}-gradient`}>
-							<LinearGradient  colors={[item.gradient[0], item.gradient[1]]} style={styles.card}>
+							<LinearGradient  colors={[data?.getAwarenessInfo.gradient_top!, data?.getAwarenessInfo.gradient_bottom!]} style={styles.card}>
 							</LinearGradient>
-						</SharedElement>
-						<SharedElement id={`${item.id}-title`}>
-							<Text style={styles.title}>{item.title}</Text>
-						</SharedElement>
-						<Text style={{color: 'white', fontSize: 16}}>{item.content}</Text>					
-						{/*<WebView
-							style={{backgroundColor: 'blue'}}
-							automaticallyAdjustContentInsets
-							originWhitelist={['*']}
-							javaScriptEnabled
-							scalesPageToFit
-							source={{html: genHtml(item.content)}}
-						/>*/}
+						<InfoArticle content={data?.getAwarenessInfo.content!} />
 					</ScrollView>
 				</View>
 			</Animated.View>

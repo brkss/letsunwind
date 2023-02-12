@@ -5,6 +5,7 @@
 package db
 
 import (
+	"database/sql"
 	"time"
 )
 
@@ -13,6 +14,16 @@ type Answer struct {
 	Ans        string `json:"ans"`
 	QuestionID string `json:"question_id"`
 	Val        int32  `json:"val"`
+}
+
+type Awarness struct {
+	ID             string         `json:"id"`
+	Content        string         `json:"content"`
+	Image          string         `json:"image"`
+	SurveyID       sql.NullString `json:"survey_id"`
+	Title          string         `json:"title"`
+	GradientTop    string         `json:"gradient_top"`
+	GradientBottom string         `json:"gradient_bottom"`
 }
 
 type Exercice struct {

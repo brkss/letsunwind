@@ -1,0 +1,11 @@
+query GetAwarenesses{
+ getAwarenesses{
+    id
+    title
+    gradient_top
+    gradient_bottom
+    survey {
+      id
+    }
+  } 
+}

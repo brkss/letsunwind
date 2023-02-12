@@ -63,6 +63,7 @@ func main() {
 
 	router.Post("/seed", func (w http.ResponseWriter, r *http.Request){
 		seed.SeedSurvies(store);
+		seed.SeedAwareness(store);
 		w.Header().Add("Content-Type", "application/json")
 		w.Write([]byte(`{"success": "ok"}`));
 	})

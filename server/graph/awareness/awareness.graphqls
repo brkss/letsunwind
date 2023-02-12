@@ -1,0 +1,17 @@
+
+
+
+type Awareness {
+	id: ID!
+	title: String!
+	image: String
+	content: String
+	survey: Survey
+	gradient_top: String!
+	gradient_bottom: String!
+}
+
+extend type Query {
+	getAwarenesses: [Awareness!]! 
+	getAwarenessInfo(id: String!): Awareness!
+}

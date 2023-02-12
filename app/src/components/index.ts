@@ -9,3 +9,4 @@ export * from './SessionElement';
 export * from './General'
 export * from './AwarenessCard'
 export * from './Choices'
+export * from './InfoArticle';

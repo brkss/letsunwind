@@ -100,14 +100,14 @@ export const HomeNavigation : React.FC = () => {
 			<Stack.Screen
 				name={"Info"}
 				sharedElements={(route) => {
-					const { item } = route.params 
+					const { id } = route.params 
 					return [
 						{
-							id: `${item.id}-gradient`,
+							id: `${id}-gradient`,
 							animation: 'fade'
 						},
 						{
-							id: `${item.id}-title`,
+							id: `${id}-title`,
 							animation: 'fade'
 						}
 					]

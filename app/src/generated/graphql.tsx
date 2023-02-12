@@ -38,6 +38,17 @@ export type AuthorizationResponse = {
   status: Scalars['Boolean'];
 };
 
+export type Awareness = {
+  __typename?: 'Awareness';
+  content?: Maybe<Scalars['String']>;
+  gradient_bottom: Scalars['String'];
+  gradient_top: Scalars['String'];
+  id: Scalars['ID'];
+  image?: Maybe<Scalars['String']>;
+  survey?: Maybe<Survey>;
+  title: Scalars['String'];
+};
+
 export type CreateExerciceInput = {
   duration: Scalars['String'];
   name: Scalars['String'];
@@ -94,10 +105,17 @@ export type MutationVerifyUserArgs = {
 export type Query = {
   __typename?: 'Query';
   Me: User;
+  getAwarenessInfo: Awareness;
+  getAwarenesses: Array<Awareness>;
   getExercices: Array<Exercice>;
   getSurvey: Survey;
   ping: Scalars['String'];
   survies: Array<Survey>;
+};
+
+
+export type QueryGetAwarenessInfoArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -172,6 +190,18 @@ export type VerifyUserMutationVariables = Exact<{
 
 
 export type VerifyUserMutation = { __typename?: 'Mutation', verifyUser?: { __typename?: 'AuthorizationResponse', status: boolean, access_token?: string | null | undefined, access_token_expires_at?: string | null | undefined, refresh_token?: string | null | undefined, refresh_token_expires_at?: string | null | undefined } | null | undefined };
+
+export type GetAwarenessInfoQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type GetAwarenessInfoQuery = { __typename?: 'Query', getAwarenessInfo: { __typename?: 'Awareness', id: string, title: string, content?: string | null | undefined, image?: string | null | undefined, gradient_top: string, gradient_bottom: string } };
+
+export type GetAwarenessesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAwarenessesQuery = { __typename?: 'Query', getAwarenesses: Array<{ __typename?: 'Awareness', id: string, title: string, gradient_top: string, gradient_bottom: string, survey?: { __typename?: 'Survey', id: string } | null | undefined }> };
 
 export type CreateExerciseMutationVariables = Exact<{
   name: Scalars['String'];
@@ -305,6 +335,86 @@ export function useVerifyUserMutation(baseOptions?: Apollo.MutationHookOptions<V
 export type VerifyUserMutationHookResult = ReturnType<typeof useVerifyUserMutation>;
 export type VerifyUserMutationResult = Apollo.MutationResult<VerifyUserMutation>;
 export type VerifyUserMutationOptions = Apollo.BaseMutationOptions<VerifyUserMutation, VerifyUserMutationVariables>;
+export const GetAwarenessInfoDocument = gql`
+    query GetAwarenessInfo($id: String!) {
+  getAwarenessInfo(id: $id) {
+    id
+    title
+    content
+    image
+    gradient_top
+    gradient_bottom
+  }
+}
+    `;
+
+/**
+ * __useGetAwarenessInfoQuery__
+ *
+ * To run a query within a React component, call `useGetAwarenessInfoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAwarenessInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAwarenessInfoQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetAwarenessInfoQuery(baseOptions: Apollo.QueryHookOptions<GetAwarenessInfoQuery, GetAwarenessInfoQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAwarenessInfoQuery, GetAwarenessInfoQueryVariables>(GetAwarenessInfoDocument, options);
+      }
+export function useGetAwarenessInfoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAwarenessInfoQuery, GetAwarenessInfoQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAwarenessInfoQuery, GetAwarenessInfoQueryVariables>(GetAwarenessInfoDocument, options);
+        }
+export type GetAwarenessInfoQueryHookResult = ReturnType<typeof useGetAwarenessInfoQuery>;
+export type GetAwarenessInfoLazyQueryHookResult = ReturnType<typeof useGetAwarenessInfoLazyQuery>;
+export type GetAwarenessInfoQueryResult = Apollo.QueryResult<GetAwarenessInfoQuery, GetAwarenessInfoQueryVariables>;
+export const GetAwarenessesDocument = gql`
+    query GetAwarenesses {
+  getAwarenesses {
+    id
+    title
+    gradient_top
+    gradient_bottom
+    survey {
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAwarenessesQuery__
+ *
+ * To run a query within a React component, call `useGetAwarenessesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAwarenessesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAwarenessesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAwarenessesQuery(baseOptions?: Apollo.QueryHookOptions<GetAwarenessesQuery, GetAwarenessesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAwarenessesQuery, GetAwarenessesQueryVariables>(GetAwarenessesDocument, options);
+      }
+export function useGetAwarenessesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAwarenessesQuery, GetAwarenessesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAwarenessesQuery, GetAwarenessesQueryVariables>(GetAwarenessesDocument, options);
+        }
+export type GetAwarenessesQueryHookResult = ReturnType<typeof useGetAwarenessesQuery>;
+export type GetAwarenessesLazyQueryHookResult = ReturnType<typeof useGetAwarenessesLazyQuery>;
+export type GetAwarenessesQueryResult = Apollo.QueryResult<GetAwarenessesQuery, GetAwarenessesQueryVariables>;
 export const CreateExerciseDocument = gql`
     mutation CreateExercise($name: String!, $duration: String!) {
   createExercice(input: {name: $name, duration: $duration}) {

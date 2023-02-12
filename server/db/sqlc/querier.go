@@ -11,6 +11,7 @@ import (
 type Querier interface {
 	BlockSession(ctx context.Context, id string) error
 	BlockVerification(ctx context.Context, id string) error
+	CreateAwarenessContent(ctx context.Context, arg CreateAwarenessContentParams) (Awarness, error)
 	CreateExercice(ctx context.Context, arg CreateExerciceParams) (Exercice, error)
 	CreateQuestionAnswer(ctx context.Context, arg CreateQuestionAnswerParams) (Answer, error)
 	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
@@ -19,6 +20,8 @@ type Querier interface {
 	CreateSurveyResult(ctx context.Context, arg CreateSurveyResultParams) (Result, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	CreateVerification(ctx context.Context, arg CreateVerificationParams) (Verfication, error)
+	GetAwarness(ctx context.Context, id string) (Awarness, error)
+	GetAwarnesses(ctx context.Context) ([]GetAwarnessesRow, error)
 	GetExercices(ctx context.Context, userID string) ([]Exercice, error)
 	GetQuestionAnswers(ctx context.Context, questionID string) ([]Answer, error)
 	GetSession(ctx context.Context, id string) (Session, error)

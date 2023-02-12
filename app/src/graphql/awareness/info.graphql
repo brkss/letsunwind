@@ -1,0 +1,10 @@
+query GetAwarenessInfo($id: String!){
+  getAwarenessInfo(id: $id){
+    id
+    title
+    content
+    image
+    gradient_top
+    gradient_bottom
+  }
+}

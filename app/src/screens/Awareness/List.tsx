@@ -1,14 +1,16 @@
 import React from 'react'
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native';
-import { AwarenessCard } from '../../components'
+import { AwarenessCard, Loading } from '../../components'
 import { _data,  } from '../../utils/data/awarness'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import Animated,  { runOnJS, useAnimatedScrollHandler } from 'react-native-reanimated';
+import { useGetAwarenessesQuery } from '../../generated/graphql';
 
 const { width } = Dimensions.get('window')
 const SNAP = width - (width * .1)
 export const AwarenessList : React.FC<any> = ({navigation}) => {
 
+	const { error, loading, data } = useGetAwarenessesQuery();
 	const [currentCard, setCurrentCard] = React.useState<number>(0);
 	const scrollHanlder = useAnimatedScrollHandler ({
 		onScroll: (e) => {
@@ -16,6 +18,9 @@ export const AwarenessList : React.FC<any> = ({navigation}) => {
 			console.log("curr >> ", SNAP, e.contentOffset.x, Math.round((e.contentOffset.x / SNAP)))
 		}	
 	})
+
+	if (loading || error )
+		return <Loading />
 
 	return (
 		<SafeAreaView 
@@ -34,13 +39,16 @@ export const AwarenessList : React.FC<any> = ({navigation}) => {
 					horizontal
 				>
 					{
-						_data.map((elm, key) => (
+						data?.getAwarenesses.map((elm, key) => (
 							<AwarenessCard 
+								id={elm.id}
 								current={currentCard === key}
 								navigation={navigation}
-								clicked={() => navigation.navigate("Info", {item: elm})}
+								clicked={() => navigation.navigate("Info", {id: elm.id})}
 								key={key}
-								item={elm}			
+								title={elm.title}
+								gradient={[elm.gradient_top, elm.gradient_bottom]}
+								survey={elm.survey?.id}
 							/>
 						))
 					}					

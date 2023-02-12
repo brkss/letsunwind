@@ -12,25 +12,28 @@ const { width } = Dimensions.get('window')
 interface Props {
 	clicked: () => void;
 	navigation: any
-	item: AwarnessItem
+	title: string;
 	current: boolean;
+	gradient: string[]
+	survey?: string
+	id: string;
 }
 
 const CARD_HEIGHT = width - (width * .1)
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
-export const AwarenessCard : React.FC<Props> = ({navigation, item, clicked, current}) => {
+export const AwarenessCard : React.FC<Props> = ({navigation, title, clicked, current, gradient, survey, id }) => {
 
 	const [showed, setShowed] = React.useState<boolean>(false);
 	const [opacity, setOpacity] = React.useState(0)
 	const bottom = useSharedValue<number>(-CARD_HEIGHT)
 
 	React.useEffect(() => {
-		if(current && item.survey){
+		if(current && survey){
 			setShowed(true);
 			bottom.value = withDelay(100, withTiming(-CARD_HEIGHT/1.5, {duration: 300}))	
-		}else if (item.survey){
+		}else if (survey){
 			setShowed(false);
 			bottom.value = withDelay(100, withTiming(-CARD_HEIGHT, {duration: 500}))	
 		}
@@ -55,15 +58,15 @@ export const AwarenessCard : React.FC<Props> = ({navigation, item, clicked, curr
 	return(
 		<Pressable onPress={() => {setOpacity(0);clicked()}} style={[styles.container, {opacity}]}>
 			<View>
-				<SharedElement id={`${item.id}-gradient`}>
-					<LinearGradient colors={[item.gradient[0], item.gradient[1]]} style={styles.card}>
+				<SharedElement id={`${id}-gradient`}>
+					<LinearGradient colors={[gradient[0], gradient[1]]} style={styles.card}>
 					</LinearGradient>
 				</SharedElement>
-				<SharedElement id={`${item.id}-title`}>
-					<Text style={styles.title}>{item.title}  </Text>
+				<SharedElement id={`${id}-title`}>
+					<Text style={styles.title}>{title}  </Text>
 				</SharedElement>
 			</View>
-			<AnimatedPressable onPress={() => { item.survey && navigation.navigate("Survey", { survey: item.survey })}} style={[styles.btn, style, {opacity: item.survey ? 1 : 0}]}>
+			<AnimatedPressable onPress={() => { survey && navigation.navigate("Survey", { survey: survey })}} style={[styles.btn, style, {opacity: survey ? 1 : 0}]}>
 				<Text style={styles.btnText}>Survey</Text>
 			</AnimatedPressable> 
 		</Pressable>
