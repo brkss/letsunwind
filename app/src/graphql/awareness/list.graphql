@@ -1,11 +1,9 @@
-query GetAwarenesses{
- getAwarenesses{
+query GetAwarenesses {
+  getAwarenesses {
     id
     title
     gradient_top
     gradient_bottom
-    survey {
-      id
-    }
-  } 
+    image
+  }
 }

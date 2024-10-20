@@ -201,7 +201,7 @@ export type GetAwarenessInfoQuery = { __typename?: 'Query', getAwarenessInfo: { 
 export type GetAwarenessesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAwarenessesQuery = { __typename?: 'Query', getAwarenesses: Array<{ __typename?: 'Awareness', id: string, title: string, gradient_top: string, gradient_bottom: string, survey?: { __typename?: 'Survey', id: string } | null | undefined }> };
+export type GetAwarenessesQuery = { __typename?: 'Query', getAwarenesses: Array<{ __typename?: 'Awareness', id: string, title: string, gradient_top: string, gradient_bottom: string, image?: string | null | undefined }> };
 
 export type CreateExerciseMutationVariables = Exact<{
   name: Scalars['String'];
@@ -382,9 +382,7 @@ export const GetAwarenessesDocument = gql`
     title
     gradient_top
     gradient_bottom
-    survey {
-      id
-    }
+    image
   }
 }
     `;
