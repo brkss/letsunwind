@@ -26,6 +26,7 @@ func (r *queryResolver) GetAwarenesses(ctx context.Context) ([]*model.Awareness,
 			Title:          item.Title,
 			GradientTop:    item.GradientTop,
 			GradientBottom: item.GradientBottom,
+			Image:          &item.Image,
 		})
 	}
 	return results, nil
@@ -41,6 +42,7 @@ func (r *queryResolver) GetAwarenessInfo(ctx context.Context, id string) (*model
 			Message: "awareness not found !",
 		}
 	}
+
 	return &model.Awareness{
 		ID:             awarenss.ID,
 		Title:          awarenss.Title,

@@ -27,7 +27,7 @@ dropdb:
 	docker exec -it $(DB_CONTAINER) dropdb $(DB_DBNAME)
 
 migrateup:
-	migrate -path db/migration -database "postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DBNAME)?sslmode=disable" -verbose up 1
+	migrate -path db/migration -database "postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DBNAME)?sslmode=disable" -verbose up 
 
 migratedown:
 	migrate -path db/migration -database "postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_DBNAME)?sslmode=disable" -verbose down 1

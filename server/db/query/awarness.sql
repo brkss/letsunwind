@@ -7,7 +7,7 @@ VALUES ( $1, $2, $3, $4, $5, $6, $7 )
 RETURNING *;
 
 -- name: GetAwarnesses :many
-SELECT id, title, gradient_top, gradient_bottom, survey_id FROM "awarness"
+SELECT id, title, image, gradient_top, gradient_bottom, survey_id FROM "awarness"
 ORDER BY id;
 
 -- name: GetAwarness :one 
