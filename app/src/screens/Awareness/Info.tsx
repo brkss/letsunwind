@@ -22,7 +22,7 @@ import Animated, {
 import { snapPoint, useVector } from "react-native-redash";
 import { SharedElement } from "react-navigation-shared-element";
 import { AwarnessItem } from "../../utils/data/awarness";
-import { InfoArticle, Loading } from "../../components";
+import { InfoArticle, Loading, PodcastBlock } from "../../components";
 import { useGetAwarenessInfoQuery } from "../../generated/graphql";
 
 const { width, height } = Dimensions.get("window");
@@ -95,18 +95,34 @@ export const Info: React.FC<any> = ({ navigation, route }) => {
             }}
           />
           <ScrollView showsVerticalScrollIndicator={false}>
-            <SharedElement id={`${id}-topic-image`}>
-              <Image
-                source={{
-                  uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeamuOP7_NnbUivOrc4oV7Vw2sLMvRgM_Ybw&s",
-                }}
-                style={styles.image}
-                resizeMode="contain"
-              />
-            </SharedElement>
+            <View style={styles.imageContainer}>
+              <SharedElement id={`${id}-topic-image`}>
+                <Image
+                  source={{
+                    uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeamuOP7_NnbUivOrc4oV7Vw2sLMvRgM_Ybw&s",
+                  }}
+                  style={styles.image}
+                  resizeMode="contain"
+                />
+              </SharedElement>
+            </View>
             <SharedElement id={`${id}-topic-title`}>
               <Text style={styles.title}>Anxiety</Text>
             </SharedElement>
+            <Text style={styles.description}>
+              Anxiety is an emotion which is characterised by an unpleasant
+              state of inner turmoil and includes feelings of dread over
+              anticipated events. Anxiety is different from fear in that fear is
+              defined as the emotional response to a present threat, whereas
+              anxiety is the anticipation of a future one.
+            </Text>
+
+            <View>
+              <PodcastBlock />
+              <PodcastBlock />
+              <PodcastBlock />
+            </View>
+            <View style={{ height: 200 }} />
             {/*<InfoArticle content={data?.getAwarenessInfo.content!} />*/}
           </ScrollView>
         </View>
@@ -130,9 +146,19 @@ const styles = StyleSheet.create({
     fontFamily: "cooper",
     fontSize: 30,
     marginTop: 30,
+    //marginLeft: 35,
   },
   image: {
     width: width * 0.8,
     height: 400,
+    margin: "auto",
+  },
+  imageContainer: {
+    alignItems: "center",
+  },
+  description: {
+    color: "white",
+    fontSize: 16,
+    marginTop: 15,
   },
 });

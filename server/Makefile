@@ -42,6 +42,9 @@ test:
 gen:
 	go run github.com/99designs/gqlgen generate
 
+createmigration:
+	migrate create -ext sql -dir db/migration -seq $(TABLE)
+
 server:
 	go run .	
 
